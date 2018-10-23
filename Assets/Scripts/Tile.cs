@@ -13,6 +13,16 @@ public class Tile : MonoBehaviour {
     public Wall east;
     public Wall west;
 
+    public Vector2Int mapPosition;
+
+    public static Tile Instantiate(Tile prefab, Vector3 position, Quaternion rotation, Transform parent, Map map, Vector2Int mapPosition)
+    {
+        Tile newTile = Instantiate<Tile>(prefab, position, rotation, parent);
+        newTile.map = map;
+        newTile.mapPosition = mapPosition;
+        return newTile;
+    }
+
     public Wall CreateWall(Direction dir)
     {
         Wall wall = null;
@@ -52,19 +62,19 @@ public class Tile : MonoBehaviour {
 
     Wall CreateNorthWall()
     {
-        Wall wall = Instantiate<Wall>(wallPrefab, transform);
-        north = wall;
-        wall.transform.position = transform.position + new Vector3(0, 0, 0.5f);
+        Wall wall = Instantiate(wallPrefab, transform.position + new Vector3(0, 0, 0.5f + map.tilePadding / 2), Quaternion.identity, transform);
         wall.transform.LookAt(transform.position + Vector3.forward);
+        north = wall;
 
-        int posX = GetMatrixPositionX();
-        int posY = GetMatrixPositionY() + 1;
+        int posX = mapPosition.x;
+        int posY = mapPosition.y + 1;
         if (posY < map.sizeY)
         {
             Tile backTile = map.tiles[posX, posY];
             if (backTile)
             {
                 wall.back = backTile;
+                backTile.south = wall;
             }
         }
         return wall;
@@ -72,19 +82,19 @@ public class Tile : MonoBehaviour {
     
     Wall CreateEastWall()
     {
-        Wall wall = Instantiate<Wall>(wallPrefab, transform);
-        east = wall;
-        wall.transform.position = transform.position + new Vector3(0.5f, 0, 0);
+        Wall wall = Instantiate(wallPrefab, transform.position + new Vector3(0.5f + map.tilePadding / 2, 0, 0), Quaternion.identity, transform);
         wall.transform.LookAt(transform.position + Vector3.right);
+        east = wall;
 
-        int posX = GetMatrixPositionX() + 1;
-        int posY = GetMatrixPositionY();
+        int posX = mapPosition.x + 1;
+        int posY = mapPosition.y;
         if (posX < map.sizeX)
         {
             Tile backTile = map.tiles[posX, posY];
             if (backTile)
             {
                 wall.back = backTile;
+                backTile.west = wall;
             }
         }
         return wall;
@@ -92,19 +102,19 @@ public class Tile : MonoBehaviour {
 
     Wall CreateSouthWall()
     {
-        Wall wall = Instantiate<Wall>(wallPrefab, transform);
-        south = wall;
-        wall.transform.position = transform.position + new Vector3(0, 0, -0.5f);
+        Wall wall = Instantiate(wallPrefab, transform.position + new Vector3(0, 0, -0.5f - map.tilePadding / 2), Quaternion.identity, transform);
         wall.transform.LookAt(transform.position + -Vector3.forward);
-
-        int posX = GetMatrixPositionX();
-        int posY = GetMatrixPositionY() - 1;
+        south = wall;
+        
+        int posX = mapPosition.x;
+        int posY = mapPosition.y - 1;
         if (posY >= 0)
         {
             Tile backTile = map.tiles[posX, posY];
             if (backTile)
             {
                 wall.back = backTile;
+                backTile.north = wall;
             }
         }
         return wall;
@@ -112,30 +122,68 @@ public class Tile : MonoBehaviour {
 
     Wall CreateWestWall()
     {
-        Wall wall = Instantiate<Wall>(wallPrefab, transform);
-        west = wall;
-        wall.transform.position = transform.position + new Vector3(-0.5f, 0, 0);
+        Wall wall = Instantiate(wallPrefab, transform.position + new Vector3(-0.5f - map.tilePadding / 2, 0, 0), Quaternion.identity, transform);
         wall.transform.LookAt(transform.position + -Vector3.right);
-
-        int posX = GetMatrixPositionX() - 1;
-        int posY = GetMatrixPositionY();
+        west = wall;
+        
+        int posX = mapPosition.x - 1;
+        int posY = mapPosition.y;
         if (posX >= 0) {
             Tile backTile = map.tiles[posX, posY];
             if (backTile)
             {
                 wall.back = backTile;
+                backTile.east = wall;
             }
         }
         return wall;
     }
 
-    int GetMatrixPositionX()
+    public void DestroyWall(Direction direction)
     {
-        return Mathf.RoundToInt(transform.position.x);
+        switch (direction)
+        {
+            case Direction.North:
+                if (north)
+                {
+                    Destroy(north.gameObject);
+                    if (mapPosition.y + 1 < map.sizeY)
+                    {
+                        map.tiles[mapPosition.x, mapPosition.y + 1].south = null;
+                    }
+                }
+                break;
+            case Direction.East:
+                if (east)
+                {
+                    Destroy(east.gameObject);
+                    if (mapPosition.x + 1 < map.sizeX)
+                    {
+                        map.tiles[mapPosition.x + 1, mapPosition.y].west = null;
+                    }
+                }
+                break;
+            case Direction.South:
+                if (south)
+                {
+                    Destroy(south.gameObject);
+                    if (mapPosition.y - 1 > 0)
+                    {
+                        map.tiles[mapPosition.x, mapPosition.y - 1].north = null;
+                    }
+                }
+                break;
+            case Direction.West:
+                if (west)
+                {
+                    Destroy(west.gameObject);
+                    if (mapPosition.x - 1 > 0)
+                    {
+                        map.tiles[mapPosition.x - 1, mapPosition.y].east = null;
+                    }
+                }
+                break;
+        }
     }
 
-    int GetMatrixPositionY()
-    {
-        return Mathf.RoundToInt(transform.position.z);
-    }
 }
