@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 534669903}
   m_Layer: 0
   m_Name: Main Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -440,16 +440,6 @@ Prefab:
       propertyPath: m_Name
       value: Player2
       objectReference: {fileID: 0}
-    - target: {fileID: 114084915262223204, guid: 468d74f15a1ae174183e9194946808e6,
-        type: 2}
-      propertyPath: mapPosition.x
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114084915262223204, guid: 468d74f15a1ae174183e9194946808e6,
-        type: 2}
-      propertyPath: mapPosition.y
-      value: 4
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 468d74f15a1ae174183e9194946808e6, type: 2}
   m_IsPrefabAsset: 0
@@ -491,27 +481,6 @@ Prefab:
     - target: {fileID: 4868975613482842, guid: 57f9ba3e9c915c94699ec734e412c799, type: 2}
       propertyPath: m_RootOrder
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114372258453430066, guid: 57f9ba3e9c915c94699ec734e412c799,
-        type: 2}
-      propertyPath: tilePrefab
-      value: 
-      objectReference: {fileID: 114069753762430992, guid: 6132ebaa4525b4e4190fda15bb485e8b,
-        type: 2}
-    - target: {fileID: 114372258453430066, guid: 57f9ba3e9c915c94699ec734e412c799,
-        type: 2}
-      propertyPath: sizeX
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114372258453430066, guid: 57f9ba3e9c915c94699ec734e412c799,
-        type: 2}
-      propertyPath: sizeY
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114372258453430066, guid: 57f9ba3e9c915c94699ec734e412c799,
-        type: 2}
-      propertyPath: tilePadding
-      value: 0.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57f9ba3e9c915c94699ec734e412c799, type: 2}

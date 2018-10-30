@@ -7,12 +7,18 @@ public class PlayerController : MonoBehaviour {
     public GameManager gm;
     public int StartMoves;
     public int MoveCost;
-    public int BuildCost;
-    public int DestoryCost;
+    public Ability[] abilities;
+    public Ability currentAbility;
+
+    void Start()
+    {
+        currentAbility = abilities[0];
+    }
 
     // Update is called once per frame
     void Update()
     {
+        print(GetMouseDirection());
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             Move(Tile.Direction.East);
@@ -29,13 +35,9 @@ public class PlayerController : MonoBehaviour {
         {
             Move(Tile.Direction.South);
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButtonDown(0))
         {
-            Build(Tile.Direction.North);
-        }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Destroy(Tile.Direction.North);
+            UseCurrentAbility();
         }
     }
 
@@ -75,16 +77,32 @@ public class PlayerController : MonoBehaviour {
         UseMoves(MoveCost);
     }
 
+    void UseCurrentAbility()
+    {
+        if (currentAbility.cost > gm.CurrentPlayer.Moves)
+        {
+            return;
+        }
+        switch (currentAbility.abilityName)
+        {
+            case "BuildWall":
+                Build(GetMouseDirection());
+                break;
+            case "DestroyWall":
+                Destroy(GetMouseDirection());
+                break;
+        }
+        UseMoves(currentAbility.cost);
+    }
+
     void Build(Tile.Direction direction)
     {
         gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].CreateWall(direction);
-        UseMoves(BuildCost);
     }
 
     void Destroy(Tile.Direction direction)
     {
         gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].DestroyWall(direction);
-        UseMoves(DestoryCost);
     }
 
     void UseMoves(int moves)
@@ -95,5 +113,37 @@ public class PlayerController : MonoBehaviour {
         {
             gm.EndTurn();
         }
+    }
+
+    Tile.Direction GetMouseDirection()
+    {
+        //https://answers.unity.com/questions/269760/ray-finding-out-x-and-z-coordinates-where-it-inter.html by aldonaletto · Jun 19, 2012 at 03:10 AM 
+        Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Plane hPlane = new Plane(Vector3.up, Vector3.zero);
+        float distance = 0;
+        if (hPlane.Raycast(mouseRay, out distance))
+        {
+            Vector3 hitPoint = mouseRay.GetPoint(distance) + new Vector3(0, 0.5f, 0);
+            Vector3 direction = (gm.CurrentPlayer.transform.position + hitPoint).normalized;
+            Debug.DrawLine(gm.CurrentPlayer.transform.position, hitPoint, Color.blue);
+            print(direction);
+            if (direction.x > 0.5f)
+            {
+                return Tile.Direction.East;
+            }
+            else if (direction.x < -0.5f)
+            {
+                return Tile.Direction.West;
+            }
+            else if (direction.z > 0.5f)
+            {
+                return Tile.Direction.North;
+            }
+            else if(direction.z < -0.5f)
+            {
+                return Tile.Direction.South;
+            }
+        }
+        return Tile.Direction.North;
     }
 }
