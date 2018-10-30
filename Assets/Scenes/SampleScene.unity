@@ -528,6 +528,16 @@ Prefab:
       propertyPath: m_Name
       value: Player1
       objectReference: {fileID: 0}
+    - target: {fileID: 114084915262223204, guid: 468d74f15a1ae174183e9194946808e6,
+        type: 2}
+      propertyPath: mapPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114084915262223204, guid: 468d74f15a1ae174183e9194946808e6,
+        type: 2}
+      propertyPath: mapPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 468d74f15a1ae174183e9194946808e6, type: 2}
   m_IsPrefabAsset: 0

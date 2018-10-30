@@ -18,7 +18,6 @@ public class PlayerController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        print(GetMouseDirection());
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             Move(Tile.Direction.East);
@@ -86,7 +85,9 @@ public class PlayerController : MonoBehaviour {
         switch (currentAbility.abilityName)
         {
             case "BuildWall":
-                Build(GetMouseDirection());
+                Tile.Direction direction = GetMouseDirection();
+                Build(direction);
+                print(gm.CurrentPlayer.name + " tried to build a wall in direction: " + direction);
                 break;
             case "DestroyWall":
                 Destroy(GetMouseDirection());
@@ -125,8 +126,8 @@ public class PlayerController : MonoBehaviour {
         {
             Vector3 hitPoint = mouseRay.GetPoint(distance) + new Vector3(0, 0.5f, 0);
             Vector3 direction = (gm.CurrentPlayer.transform.position + hitPoint).normalized;
-            Debug.DrawLine(gm.CurrentPlayer.transform.position, hitPoint, Color.blue);
-            print(direction);
+            Debug.DrawLine(gm.CurrentPlayer.transform.position, hitPoint, Color.blue, 1);
+
             if (direction.x > 0.5f)
             {
                 return Tile.Direction.East;
