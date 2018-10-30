@@ -13,9 +13,21 @@ public class PlayerController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             Move(Tile.Direction.East);
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            Move(Tile.Direction.West);
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            Move(Tile.Direction.North);
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            Move(Tile.Direction.South);
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -34,28 +46,28 @@ public class PlayerController : MonoBehaviour {
             case Tile.Direction.North:
                 if (!gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].north)
                 {
-                    transform.Translate(new Vector3(0, 0, 1 + gm.map.tilePadding));
+                    gm.CurrentPlayer.transform.Translate(new Vector3(0, 0, 1 + gm.map.tilePadding));
                     gm.CurrentPlayer.mapPosition.y++;
                 }
                 break;
             case Tile.Direction.East:
                 if (!gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].east)
                 {
-                    transform.Translate(new Vector3(1 + gm.map.tilePadding, 0, 0));
+                    gm.CurrentPlayer.transform.Translate(new Vector3(1 + gm.map.tilePadding, 0, 0));
                     gm.CurrentPlayer.mapPosition.x++;
                 }
                 break;
             case Tile.Direction.South:
                 if (!gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].south)
                 {
-                    transform.Translate(new Vector3(0, 0, -1 - gm.map.tilePadding));
+                    gm.CurrentPlayer.transform.Translate(new Vector3(0, 0, -1 - gm.map.tilePadding));
                     gm.CurrentPlayer.mapPosition.y--;
                 }
                 break;
             case Tile.Direction.West:
                 if (!gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].west)
                 {
-                    transform.Translate(new Vector3(-1 - gm.map.tilePadding, 0, 0));
+                    gm.CurrentPlayer.transform.Translate(new Vector3(-1 - gm.map.tilePadding, 0, 0));
                     gm.CurrentPlayer.mapPosition.x--;
                 }
                 break;
@@ -79,7 +91,7 @@ public class PlayerController : MonoBehaviour {
     {
         gm.CurrentPlayer.Moves -= moves;
         print("Moves left: " + gm.CurrentPlayer.Moves);
-        if (moves <= 0)
+        if (gm.CurrentPlayer.Moves <= 0)
         {
             gm.EndTurn();
         }
