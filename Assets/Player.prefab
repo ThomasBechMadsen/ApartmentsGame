@@ -95,4 +95,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c9b444272412ed438b9e12a809b1cee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapPosition: {x: 4, y: 4}
+  mapPosition: {x: 0, y: 0}
+  playerColour: {fileID: 2100000, guid: 95bb675e9aa49fe43bf142bf7a776f21, type: 2}

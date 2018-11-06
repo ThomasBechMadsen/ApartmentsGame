@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour {
 
     void Build(Tile.Direction direction)
     {
-        gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].CreateWall(direction);
+        gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].CreateWall(direction, gm.CurrentPlayer);
     }
 
     void Destroy(Tile.Direction direction)

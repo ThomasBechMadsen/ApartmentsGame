@@ -23,7 +23,7 @@ public class Tile : MonoBehaviour {
         return newTile;
     }
 
-    public Wall CreateWall(Direction dir)
+    public Wall CreateWall(Direction dir, Player creator)
     {
         Wall wall = null;
 
@@ -56,7 +56,14 @@ public class Tile : MonoBehaviour {
         if (wall)
         {
             wall.front = this;
+            if (creator != null && wall.back.north && wall.back.south && wall.back.east && wall.back.west)
+            {
+                creator.Points++;
+                wall.back.GetComponent<Renderer>().material = creator.playerColour;
+                //Todo: Check for win
+            }
         }
+        
         return wall;
     }
 

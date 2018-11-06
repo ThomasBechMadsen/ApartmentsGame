@@ -14,11 +14,6 @@ public class Map : MonoBehaviour {
     private void Start()
     {
         GenerateMap();
-        Wall wall = new Wall();
-        tiles[1, 2].CreateWall(Tile.Direction.North);
-        tiles[1, 2].CreateWall(Tile.Direction.South);
-        tiles[1, 2].CreateWall(Tile.Direction.East);
-        tiles[1, 2].CreateWall(Tile.Direction.West);
     }
 
     void GenerateMap()
@@ -32,19 +27,19 @@ public class Map : MonoBehaviour {
                 tiles[i, j] = Tile.Instantiate(tilePrefab, new Vector3(i + tilePadding * i, 0, j + tilePadding * j), Quaternion.Euler(90, 0, 0), transform, this, new Vector2Int(i, j));
                 if (i == 0)
                 {
-                    tiles[i, j].CreateWall(Tile.Direction.West);
+                    tiles[i, j].CreateWall(Tile.Direction.West, null);
                 }
                 if (i == sizeX-1)
                 {
-                    tiles[i, j].CreateWall(Tile.Direction.East);
+                    tiles[i, j].CreateWall(Tile.Direction.East, null);
                 }
                 if (j == 0)
                 {
-                    tiles[i, j].CreateWall(Tile.Direction.South);
+                    tiles[i, j].CreateWall(Tile.Direction.South, null);
                 }
                 if (j == sizeY-1)
                 {
-                    tiles[i, j].CreateWall(Tile.Direction.North);
+                    tiles[i, j].CreateWall(Tile.Direction.North, null);
                 }
             }
         }

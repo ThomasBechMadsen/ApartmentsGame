@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
     public Player player1;
     public Player player2;
     public Player CurrentPlayer { get; private set; }
+    public int turnsCounter = 1;
 
     // Use this for initialization
     void Start () {
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour {
             CurrentPlayer = player1;
         }
         CurrentPlayer.Moves = pc.StartMoves;
-        print("Current player is: " + CurrentPlayer.name + ", with moves: " + CurrentPlayer.Moves);
+        turnsCounter++;
+        print("Round: " + Mathf.FloorToInt(turnsCounter/2) + ". Current player is: " + CurrentPlayer.name + ", with moves: " + CurrentPlayer.Moves);
     }
 }
