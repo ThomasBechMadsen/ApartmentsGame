@@ -1,18 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour {
 
     public GameManager gm;
     public int StartMoves;
     public int MoveCost;
-    public Ability[] abilities;
+    public List<Ability> abilities = new List<Ability>();
     public Ability currentAbility;
-
+    
     void Start()
     {
-        currentAbility = abilities[0];
+        SetCurrentAbility(abilities[0]);
     }
 
     // Update is called once per frame
@@ -34,7 +35,7 @@ public class PlayerController : MonoBehaviour {
         {
             Move(Tile.Direction.South);
         }
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             UseCurrentAbility();
         }
@@ -82,15 +83,16 @@ public class PlayerController : MonoBehaviour {
         {
             return;
         }
+        Tile.Direction direction = GetMouseDirection();
         switch (currentAbility.abilityName)
         {
             case "BuildWall":
-                Tile.Direction direction = GetMouseDirection();
                 Build(direction);
                 print(gm.CurrentPlayer.name + " tried to build a wall in direction: " + direction);
                 break;
             case "DestroyWall":
-                Destroy(GetMouseDirection());
+                Destroy(direction);
+                print(gm.CurrentPlayer.name + " tried to destroy a wall in direction: " + direction);
                 break;
         }
         UseMoves(currentAbility.cost);
@@ -125,8 +127,8 @@ public class PlayerController : MonoBehaviour {
         if (hPlane.Raycast(mouseRay, out distance))
         {
             Vector3 hitPoint = mouseRay.GetPoint(distance) + new Vector3(0, 0.5f, 0);
-            Vector3 direction = (gm.CurrentPlayer.transform.position + hitPoint).normalized;
-            Debug.DrawLine(gm.CurrentPlayer.transform.position, hitPoint, Color.blue, 1);
+            Vector3 direction = (hitPoint - gm.CurrentPlayer.transform.position).normalized;
+            Debug.DrawLine(gm.CurrentPlayer.transform.position, direction, Color.blue, 1);
 
             if (direction.x > 0.5f)
             {
@@ -146,5 +148,11 @@ public class PlayerController : MonoBehaviour {
             }
         }
         return Tile.Direction.North;
+    }
+
+    public void SetCurrentAbility(Ability ability)
+    {
+        currentAbility = ability;
+        print("CurrentAbility is now: " + currentAbility.abilityName);
     }
 }

@@ -8,4 +8,10 @@ public class Ability {
     
     public string abilityName;
     public int cost;
+
+    public Ability(string abilityName, int cost)
+    {
+        this.abilityName = abilityName;
+        this.cost = cost;
+    }
 }
