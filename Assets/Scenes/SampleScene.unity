@@ -501,18 +501,28 @@ Prefab:
     - target: {fileID: 114372258453430066, guid: 57f9ba3e9c915c94699ec734e412c799,
         type: 2}
       propertyPath: sizeX
-      value: 100
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 114372258453430066, guid: 57f9ba3e9c915c94699ec734e412c799,
         type: 2}
       propertyPath: sizeY
-      value: 100
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 114372258453430066, guid: 57f9ba3e9c915c94699ec734e412c799,
         type: 2}
       propertyPath: tilePadding
       value: 0.25
       objectReference: {fileID: 0}
+    - target: {fileID: 114372258453430066, guid: 57f9ba3e9c915c94699ec734e412c799,
+        type: 2}
+      propertyPath: player1
+      value: 
+      objectReference: {fileID: 387996846}
+    - target: {fileID: 114372258453430066, guid: 57f9ba3e9c915c94699ec734e412c799,
+        type: 2}
+      propertyPath: player2
+      value: 
+      objectReference: {fileID: 81873358}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57f9ba3e9c915c94699ec734e412c799, type: 2}
   m_IsPrefabAsset: 0
