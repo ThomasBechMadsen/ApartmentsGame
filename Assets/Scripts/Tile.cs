@@ -58,11 +58,7 @@ public class Tile : MonoBehaviour {
             wall.front = this;
             if (creator != null && wall.back.north && wall.back.south && wall.back.east && wall.back.west)
             {
-                creator.Points++;
-                wall.back.GetComponent<Renderer>().material = creator.playerColour;
-                wall.destructable = false;
-                map.unclaimedTiles--;
-                map.gm.resetMoves();
+                ClaimTile(wall.back, creator);
             }
         }
         
@@ -198,6 +194,18 @@ public class Tile : MonoBehaviour {
                 break;
         }
         return false;
+    }
+
+    public static void ClaimTile(Tile tile, Player player)
+    {
+        player.Points++;
+        tile.GetComponent<Renderer>().material = player.playerColour;
+        tile.north.destructable = false;
+        tile.east.destructable = false;
+        tile.south.destructable = false;
+        tile.west.destructable = false;
+        tile.map.unclaimedTiles--;
+        tile.map.gm.ResetMoves();
     }
 
 }

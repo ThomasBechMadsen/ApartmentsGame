@@ -107,7 +107,7 @@ public class PlayerController : MonoBehaviour {
                 result = Build(direction);
                 if (result)
                 {
-                    gm.checkWinConditions();
+                    gm.CheckWinConditions();
                 }
                 print(gm.CurrentPlayer.name + " tried to build a wall in direction: " + direction);
                 break;

@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour {
     
     public void StartTurn()
     {
-        resetMoves();
+        ResetMoves();
         print("Round: " + Mathf.FloorToInt(turnsCounter / 2) + ". Current player is: " + CurrentPlayer.name + ", with moves: " + CurrentPlayer.Moves);
     }
 
@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour {
         StartTurn();
     }
 
-    public bool checkWinConditions()
+    public bool CheckWinConditions()
     {
         if (map.unclaimedTiles == 2)
         {
@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour {
         return false;
     }
 
-    public void resetMoves()
+    public void ResetMoves()
     {
         CurrentPlayer.Moves = pc.StartMoves;
         if (CurrentPlayer == player1)
