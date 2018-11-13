@@ -16,7 +16,7 @@ public class Map : MonoBehaviour {
     private void Start()
     {
         GenerateMap();
-        //SetPlayerStartPosition();
+        SetPlayerStartPosition();
         Wall wall = new Wall();
         //tiles[1, 2].CreateWall(Tile.Direction.North);
         //tiles[1, 2].CreateWall(Tile.Direction.South);
@@ -65,6 +65,11 @@ public class Map : MonoBehaviour {
         Vector2 shift = new Vector2(0, 0);
         float zoom = 0.1f;
 
+        if(n <= 5 || m <= 5 )
+        {
+            zoom = 0.001f;
+        }
+
         int newNoise = Random.Range(0, 10000);
         //int newNoise = 3;
 
@@ -105,53 +110,66 @@ public class Map : MonoBehaviour {
 
     private void SetPlayerStartPosition()
     {
-   
-
         int centerX = Mathf.RoundToInt(sizeX / 2);
         int centerY = Mathf.RoundToInt(sizeY / 2);
 
+
+
+
+        Vector2Int player1position = SetPlayer(centerX, centerY, new bool[sizeX, sizeY], new Vector2Int());
+
         // insert player1
-        while(true)
+        player1.transform.position = new Vector3(player1position.x + tilePadding*player1position.x, 0.5f, player1position.y + tilePadding*player1position.y);
+        player1.mapPosition = player1position;
+
+        Vector2Int player2position = SetPlayer(centerX, centerY, new bool[sizeX, sizeY], player1position);
+
+        // insert player2
+        player2.transform.position = new Vector3(player2position.x + tilePadding * player2position.x,  0.5f, player2position.y + tilePadding * player2position.y);
+        player2.mapPosition = player2position;
+
+
+
+    }
+
+    Vector2Int SetPlayer(int u, int v, bool[,] visited, Vector2Int playerPosition)
+    {   
+        int[] dx = {0,  -1, -1, -1, 0, 0, 1, 1, 1 };
+        int[] dy = {0,  -1, 0, 1, -1, 1, -1, 0, 1 };
+
+        if (!visited[u, v])
         {
-            if (tiles[centerX, centerY] != null)
+            visited[u, v] = true;
+        }
+
+        // search for 4 neighbours
+        for (int i = 0; i < 9; i++)
+        {
+            int x = u + dx[i];
+            int y = v + dy[i];
+
+            if (x < 0 || x >= sizeX || y < 0 || y >= sizeY)
             {
-                player1.transform.position = new Vector3(centerX, 0.5f, centerY);
-                player1.mapPosition = new Vector2Int(centerX, centerY);
-                break;
+                continue;
+            }
+
+            if (visited[x, y] || tiles[x, y] == null)
+            {
+                continue;
+            }
+
+            visited[x, y] = true;
+
+            if (tiles[x, y] && (playerPosition.x != x && playerPosition.y != y))
+            {
+                return new Vector2Int(x, y);
             }
             else
             {
-                // TODO 
-                if(true)
-                {
-
-                }
-                 
+                return SetPlayer(x, y, visited, playerPosition);
             }
         }
 
-        int player1PositionX = player1.mapPosition.x + 2;
-        int player2PositionY = player1.mapPosition.y + 2;
-
-        while(true)
-        {
-            if (tiles[player1PositionX, player2PositionY] != null)
-            {
-                player2.transform.position = new Vector3(player1PositionX, 0.5f, player2PositionY);
-                player2.mapPosition = new Vector2Int(player1PositionX, player2PositionY);
-                break;
-            }
-            else
-            {
-                // TODO
-                if(true)
-                {
-
-                }
-            }
-        }
-
-
-
+        return new Vector2Int();
     }
 }
