@@ -70,5 +70,11 @@ MonoBehaviour:
   gm: {fileID: 114126436112028084}
   StartMoves: 5
   MoveCost: 1
-  BuildCost: 3
-  DestoryCost: 3
+  abilities:
+  - abilityName: BuildWall
+    cost: 3
+  - abilityName: DestroyWall
+    cost: 3
+  currentAbility:
+    abilityName: 
+    cost: 0

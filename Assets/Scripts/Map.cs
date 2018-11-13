@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Map : MonoBehaviour {
 
+    public GameManager gm;
     public Tile tilePrefab;
     public int sizeX;
     public int sizeY;
     public float tilePadding;
-    public Player player1;
-    public Player player2;
+
+    public int unclaimedTiles = 0;
+
 
     public Tile[,] tiles;
 
@@ -17,11 +19,6 @@ public class Map : MonoBehaviour {
     {
         GenerateMap();
         SetPlayerStartPosition();
-        Wall wall = new Wall();
-        //tiles[1, 2].CreateWall(Tile.Direction.North);
-        //tiles[1, 2].CreateWall(Tile.Direction.South);
-        //tiles[1, 2].CreateWall(Tile.Direction.East);
-        //tiles[1, 2].CreateWall(Tile.Direction.West);
     }
 
     void GenerateMap()
@@ -35,22 +32,23 @@ public class Map : MonoBehaviour {
             {
                 if (map[i, j] == 0)
                 {
+                    unclaimedTiles++;
                     tiles[i, j] = Tile.Instantiate(tilePrefab, new Vector3(i + tilePadding * i, 0, j + tilePadding * j), Quaternion.Euler(90, 0, 0), transform, this, new Vector2Int(i, j));
                     if (i == 0 || i - 1 >= 0 && map[i - 1, j] == 1)
                     {
-                        tiles[i, j].CreateWall(Tile.Direction.West);
+                        tiles[i, j].CreateWall(Tile.Direction.West, null).destructable = false;
                     }
                     if (i == sizeX - 1 || i + 1 < sizeX && map[i + 1, j] == 1)
                     {
-                        tiles[i, j].CreateWall(Tile.Direction.East);
+                        tiles[i, j].CreateWall(Tile.Direction.East, null).destructable = false;
                     }
                     if (j == 0 || j - 1 >= 0 && map[i, j - 1] == 1)
                     {
-                        tiles[i, j].CreateWall(Tile.Direction.South);
+                        tiles[i, j].CreateWall(Tile.Direction.South, null).destructable = false;
                     }
                     if (j == sizeY - 1 || j + 1 < sizeY && map[i, j + 1] == 1)
                     {
-                        tiles[i, j].CreateWall(Tile.Direction.North);
+                        tiles[i, j].CreateWall(Tile.Direction.North, null).destructable = false; ;
                     }
                           
                 }
@@ -65,7 +63,7 @@ public class Map : MonoBehaviour {
         Vector2 shift = new Vector2(0, 0);
         float zoom = 0.1f;
 
-        if(n <= 5 || m <= 5 )
+        if (n <= 5 || m <= 5)
         {
             zoom = 0.001f;
         }
@@ -76,20 +74,20 @@ public class Map : MonoBehaviour {
         int centerX = Mathf.RoundToInt(n / 2);
         int centerY = Mathf.RoundToInt(m / 2);
 
-        for(int x = 0; x < n; x++)
+        for (int x = 0; x < n; x++)
         {
-            for(int y = 0; y < m; y++)
+            for (int y = 0; y < m; y++)
             {
                 float distanceX = (centerX - x) * (centerX - x);
                 float distanceY = (centerY - y) * (centerY - y);
 
-                float distanceToCenter =  Mathf.Sqrt(distanceX + distanceY);
+                float distanceToCenter = Mathf.Sqrt(distanceX + distanceY);
 
                 distanceToCenter = distanceToCenter / n;
 
                 Vector2 pos = zoom * (new Vector2(x, y)) + shift;
                 float noise = Mathf.PerlinNoise(pos.x + newNoise, pos.y + newNoise);
-        
+
                 if (noise < distanceToCenter)
                 {
                     matrix[x, y] = 1;
@@ -101,7 +99,7 @@ public class Map : MonoBehaviour {
             }
         }
 
-    
+
         matrix = new Application.Island(n, m, matrix).FindLargestIsland();
         return matrix;
     }
@@ -119,14 +117,14 @@ public class Map : MonoBehaviour {
         Vector2Int player1position = SetPlayer(centerX, centerY, new bool[sizeX, sizeY], new Vector2Int());
 
         // insert player1
-        player1.transform.position = new Vector3(player1position.x + tilePadding*player1position.x, 0.5f, player1position.y + tilePadding*player1position.y);
-        player1.mapPosition = player1position;
+        gm.player1.transform.position = new Vector3(player1position.x + tilePadding*player1position.x, 0.5f, player1position.y + tilePadding*player1position.y);
+        gm.player1.mapPosition = player1position;
 
         Vector2Int player2position = SetPlayer(centerX, centerY, new bool[sizeX, sizeY], player1position);
 
         // insert player2
-        player2.transform.position = new Vector3(player2position.x + tilePadding * player2position.x,  0.5f, player2position.y + tilePadding * player2position.y);
-        player2.mapPosition = player2position;
+        gm.player2.transform.position = new Vector3(player2position.x + tilePadding * player2position.x,  0.5f, player2position.y + tilePadding * player2position.y);
+        gm.player2.mapPosition = player2position;
 
 
 

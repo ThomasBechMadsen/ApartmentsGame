@@ -9,11 +9,11 @@ public class GameManager : MonoBehaviour {
 
     public Player player1;
     public Player player2;
-    public Player CurrentPlayer { get; private set; }
+    public Player CurrentPlayer;
+    public int turnsCounter = 1;
 
     // Use this for initialization
     void Start () {
-        EndTurn();
 	}
 
     public void EndTurn()
@@ -26,7 +26,34 @@ public class GameManager : MonoBehaviour {
         {
             CurrentPlayer = player1;
         }
-        CurrentPlayer.Moves = pc.StartMoves;
-        print("Current player is: " + CurrentPlayer.name + ", with moves: " + CurrentPlayer.Moves);
+        resetMoves(CurrentPlayer);
+        turnsCounter++;
+        print("Round: " + Mathf.FloorToInt(turnsCounter/2) + ". Current player is: " + CurrentPlayer.name + ", with moves: " + CurrentPlayer.Moves);
+    }
+
+    public bool checkWinConditions()
+    {
+        if (map.unclaimedTiles == 2)
+        {
+            print("Game Over!");
+            if (player1.Points == player2.Points)
+            {
+                print("No winner :(");
+            } else if (player1.Points > player2.Points)
+            {
+                print("Player 1 wins");
+            }
+            else
+            {
+                print("Player 2 wins");
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public void resetMoves(Player player)
+    {
+        player.Moves = pc.StartMoves;
     }
 }

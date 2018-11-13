@@ -1,14 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour {
 
     public GameManager gm;
     public int StartMoves;
     public int MoveCost;
-    public int BuildCost;
-    public int DestoryCost;
+    public List<Ability> abilities = new List<Ability>();
+    public Ability currentAbility;
+    
+    void Start()
+    {
+        SetCurrentAbility(abilities[0]);
+    }
 
     // Update is called once per frame
     void Update()
@@ -29,13 +35,9 @@ public class PlayerController : MonoBehaviour {
         {
             Move(Tile.Direction.South);
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
-            Build(Tile.Direction.North);
-        }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Destroy(Tile.Direction.North);
+            UseCurrentAbility();
         }
     }
 
@@ -49,12 +51,20 @@ public class PlayerController : MonoBehaviour {
                     gm.CurrentPlayer.transform.Translate(new Vector3(0, 0, 1 + gm.map.tilePadding));
                     gm.CurrentPlayer.mapPosition.y++;
                 }
+                else
+                {
+                    return;
+                }
                 break;
             case Tile.Direction.East:
                 if (!gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].east)
                 {
                     gm.CurrentPlayer.transform.Translate(new Vector3(1 + gm.map.tilePadding, 0, 0));
                     gm.CurrentPlayer.mapPosition.x++;
+                }
+                else
+                {
+                    return;
                 }
                 break;
             case Tile.Direction.South:
@@ -63,6 +73,10 @@ public class PlayerController : MonoBehaviour {
                     gm.CurrentPlayer.transform.Translate(new Vector3(0, 0, -1 - gm.map.tilePadding));
                     gm.CurrentPlayer.mapPosition.y--;
                 }
+                else
+                {
+                    return;
+                }
                 break;
             case Tile.Direction.West:
                 if (!gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].west)
@@ -70,21 +84,52 @@ public class PlayerController : MonoBehaviour {
                     gm.CurrentPlayer.transform.Translate(new Vector3(-1 - gm.map.tilePadding, 0, 0));
                     gm.CurrentPlayer.mapPosition.x--;
                 }
+                else
+                {
+                    return;
+                }
                 break;
         }
         UseMoves(MoveCost);
     }
 
-    void Build(Tile.Direction direction)
+    void UseCurrentAbility()
     {
-        gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].CreateWall(direction);
-        UseMoves(BuildCost);
+        if (currentAbility.cost > gm.CurrentPlayer.Moves)
+        {
+            return;
+        }
+        Tile.Direction direction = GetMouseDirection();
+        bool result = false;
+        switch (currentAbility.abilityName)
+        {
+            case "BuildWall":
+                result = Build(direction);
+                if (result)
+                {
+                    gm.checkWinConditions();
+                }
+                print(gm.CurrentPlayer.name + " tried to build a wall in direction: " + direction);
+                break;
+            case "DestroyWall":
+                result = Destroy(direction);
+                print(gm.CurrentPlayer.name + " tried to destroy a wall in direction: " + direction);
+                break;
+        }
+        if (result)
+        {
+            UseMoves(currentAbility.cost);
+        }
     }
 
-    void Destroy(Tile.Direction direction)
+    bool Build(Tile.Direction direction)
     {
-        gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].DestroyWall(direction);
-        UseMoves(DestoryCost);
+        return gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].CreateWall(direction, gm.CurrentPlayer);
+    }
+
+    bool Destroy(Tile.Direction direction)
+    {
+        return gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].DestroyWall(direction);
     }
 
     void UseMoves(int moves)
@@ -95,5 +140,43 @@ public class PlayerController : MonoBehaviour {
         {
             gm.EndTurn();
         }
+    }
+
+    Tile.Direction GetMouseDirection()
+    {
+        //https://answers.unity.com/questions/269760/ray-finding-out-x-and-z-coordinates-where-it-inter.html by aldonaletto · Jun 19, 2012 at 03:10 AM 
+        Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Plane hPlane = new Plane(Vector3.up, Vector3.zero);
+        float distance = 0;
+        if (hPlane.Raycast(mouseRay, out distance))
+        {
+            Vector3 hitPoint = mouseRay.GetPoint(distance) + new Vector3(0, 0.5f, 0);
+            Vector3 direction = (hitPoint - gm.CurrentPlayer.transform.position).normalized;
+            Debug.DrawLine(gm.CurrentPlayer.transform.position, direction, Color.blue, 1);
+
+            if (direction.x > 0.5f)
+            {
+                return Tile.Direction.East;
+            }
+            else if (direction.x < -0.5f)
+            {
+                return Tile.Direction.West;
+            }
+            else if (direction.z > 0.5f)
+            {
+                return Tile.Direction.North;
+            }
+            else if(direction.z < -0.5f)
+            {
+                return Tile.Direction.South;
+            }
+        }
+        return Tile.Direction.North;
+    }
+
+    public void SetCurrentAbility(Ability ability)
+    {
+        currentAbility = ability;
+        print("CurrentAbility is now: " + currentAbility.abilityName);
     }
 }

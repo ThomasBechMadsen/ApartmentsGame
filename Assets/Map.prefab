@@ -51,6 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ec838b75ff21654db97afecf37ea1c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilePrefab: {fileID: 0}
-  sizeX: 0
-  sizeY: 0
+  tilePrefab: {fileID: 114069753762430992, guid: 6132ebaa4525b4e4190fda15bb485e8b,
+    type: 2}
+  sizeX: 5
+  sizeY: 5
+  tilePadding: 0.25

@@ -96,3 +96,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapPosition: {x: 0, y: 0}
+  playerColour: {fileID: 2100000, guid: 95bb675e9aa49fe43bf142bf7a776f21, type: 2}
