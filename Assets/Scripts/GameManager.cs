@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour {
 
     public Map map;
     public PlayerController pc;
+    public EnergyBarController energyBarController;
 
     public Player player1;
     public Player player2;
@@ -14,7 +15,14 @@ public class GameManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        StartTurn();
 	}
+    
+    public void StartTurn()
+    {
+        resetMoves();
+        print("Round: " + Mathf.FloorToInt(turnsCounter / 2) + ". Current player is: " + CurrentPlayer.name + ", with moves: " + CurrentPlayer.Moves);
+    }
 
     public void EndTurn()
     {
@@ -26,9 +34,8 @@ public class GameManager : MonoBehaviour {
         {
             CurrentPlayer = player1;
         }
-        resetMoves(CurrentPlayer);
         turnsCounter++;
-        print("Round: " + Mathf.FloorToInt(turnsCounter/2) + ". Current player is: " + CurrentPlayer.name + ", with moves: " + CurrentPlayer.Moves);
+        StartTurn();
     }
 
     public bool checkWinConditions()
@@ -52,8 +59,16 @@ public class GameManager : MonoBehaviour {
         return false;
     }
 
-    public void resetMoves(Player player)
+    public void resetMoves()
     {
-        player.Moves = pc.StartMoves;
+        CurrentPlayer.Moves = pc.StartMoves;
+        if (CurrentPlayer == player1)
+        {
+            energyBarController.SwitchColor(energyBarController.player1Color);
+        }
+        else
+        {
+            energyBarController.SwitchColor(energyBarController.player2Color);
+        }
     }
 }

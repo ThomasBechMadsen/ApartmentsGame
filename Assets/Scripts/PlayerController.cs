@@ -135,6 +135,7 @@ public class PlayerController : MonoBehaviour {
     void UseMoves(int moves)
     {
         gm.CurrentPlayer.Moves -= moves;
+        gm.energyBarController.UseMoves(moves);
         print("Moves left: " + gm.CurrentPlayer.Moves);
         if (gm.CurrentPlayer.Moves <= 0)
         {

@@ -54,8 +54,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   map: {fileID: 0}
   pc: {fileID: 114884677252030252}
+  energyBarController: {fileID: 0}
   player1: {fileID: 0}
   player2: {fileID: 0}
+  CurrentPlayer: {fileID: 0}
+  turnsCounter: 1
 --- !u!114 &114884677252030252
 MonoBehaviour:
   m_ObjectHideFlags: 1

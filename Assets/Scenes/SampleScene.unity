@@ -165,6 +165,11 @@ Prefab:
       objectReference: {fileID: 1953684400}
     - target: {fileID: 114126436112028084, guid: b3af8ba2760d13b4783e2dcc4f2095ae,
         type: 2}
+      propertyPath: gUIEnergyBar
+      value: 
+      objectReference: {fileID: 1474773697}
+    - target: {fileID: 114126436112028084, guid: b3af8ba2760d13b4783e2dcc4f2095ae,
+        type: 2}
       propertyPath: player1
       value: 
       objectReference: {fileID: 387996846}
@@ -178,11 +183,6 @@ Prefab:
       propertyPath: CurrentPlayer
       value: 
       objectReference: {fileID: 387996846}
-    - target: {fileID: 114884677252030252, guid: b3af8ba2760d13b4783e2dcc4f2095ae,
-        type: 2}
-      propertyPath: abilities.Array.data[0].cost
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3af8ba2760d13b4783e2dcc4f2095ae, type: 2}
   m_IsPrefabAsset: 0
@@ -475,6 +475,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!1 &1474773697 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1723511595019948, guid: a6cad47f4dacf6f43b942abc4c7091b3,
+    type: 2}
+  m_PrefabInternal: {fileID: 2075713636}
 --- !u!114 &1490356596 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114884677252030252, guid: b3af8ba2760d13b4783e2dcc4f2095ae,
@@ -591,6 +596,12 @@ Prefab:
       propertyPath: sizeX
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114372258453430066, guid: 57f9ba3e9c915c94699ec734e412c799,
+        type: 2}
+      propertyPath: gm
+      value: 
+      objectReference: {fileID: 114126436112028084, guid: b3af8ba2760d13b4783e2dcc4f2095ae,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57f9ba3e9c915c94699ec734e412c799, type: 2}
   m_IsPrefabAsset: 0
