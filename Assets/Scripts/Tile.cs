@@ -60,7 +60,9 @@ public class Tile : MonoBehaviour {
             {
                 creator.Points++;
                 wall.back.GetComponent<Renderer>().material = creator.playerColour;
-                //Todo: Check for win
+                wall.destructable = false;
+                map.unclaimedTiles--;
+                map.gm.resetMoves(creator);
             }
         }
         
@@ -146,51 +148,56 @@ public class Tile : MonoBehaviour {
         return wall;
     }
 
-    public void DestroyWall(Direction direction)
+    public bool DestroyWall(Direction direction)
     {
         switch (direction)
         {
             case Direction.North:
-                if (north)
+                if (north && north.destructable)
                 {
                     Destroy(north.gameObject);
                     if (mapPosition.y + 1 < map.sizeY)
                     {
                         map.tiles[mapPosition.x, mapPosition.y + 1].south = null;
                     }
+                    return true;
                 }
                 break;
             case Direction.East:
-                if (east)
+                if (east && east.destructable)
                 {
                     Destroy(east.gameObject);
                     if (mapPosition.x + 1 < map.sizeX)
                     {
                         map.tiles[mapPosition.x + 1, mapPosition.y].west = null;
                     }
+                    return true;
                 }
                 break;
             case Direction.South:
-                if (south)
+                if (south && south.destructable)
                 {
                     Destroy(south.gameObject);
                     if (mapPosition.y - 1 > 0)
                     {
                         map.tiles[mapPosition.x, mapPosition.y - 1].north = null;
                     }
+                    return true;
                 }
                 break;
             case Direction.West:
-                if (west)
+                if (west && west.destructable)
                 {
                     Destroy(west.gameObject);
                     if (mapPosition.x - 1 > 0)
                     {
                         map.tiles[mapPosition.x - 1, mapPosition.y].east = null;
                     }
+                    return true;
                 }
                 break;
         }
+        return false;
     }
 
 }

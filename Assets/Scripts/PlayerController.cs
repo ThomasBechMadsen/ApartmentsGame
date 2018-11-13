@@ -51,12 +51,20 @@ public class PlayerController : MonoBehaviour {
                     gm.CurrentPlayer.transform.Translate(new Vector3(0, 0, 1 + gm.map.tilePadding));
                     gm.CurrentPlayer.mapPosition.y++;
                 }
+                else
+                {
+                    return;
+                }
                 break;
             case Tile.Direction.East:
                 if (!gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].east)
                 {
                     gm.CurrentPlayer.transform.Translate(new Vector3(1 + gm.map.tilePadding, 0, 0));
                     gm.CurrentPlayer.mapPosition.x++;
+                }
+                else
+                {
+                    return;
                 }
                 break;
             case Tile.Direction.South:
@@ -65,12 +73,20 @@ public class PlayerController : MonoBehaviour {
                     gm.CurrentPlayer.transform.Translate(new Vector3(0, 0, -1 - gm.map.tilePadding));
                     gm.CurrentPlayer.mapPosition.y--;
                 }
+                else
+                {
+                    return;
+                }
                 break;
             case Tile.Direction.West:
                 if (!gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].west)
                 {
                     gm.CurrentPlayer.transform.Translate(new Vector3(-1 - gm.map.tilePadding, 0, 0));
                     gm.CurrentPlayer.mapPosition.x--;
+                }
+                else
+                {
+                    return;
                 }
                 break;
         }
@@ -84,28 +100,36 @@ public class PlayerController : MonoBehaviour {
             return;
         }
         Tile.Direction direction = GetMouseDirection();
+        bool result = false;
         switch (currentAbility.abilityName)
         {
             case "BuildWall":
-                Build(direction);
+                result = Build(direction);
+                if (result)
+                {
+                    gm.checkWinConditions();
+                }
                 print(gm.CurrentPlayer.name + " tried to build a wall in direction: " + direction);
                 break;
             case "DestroyWall":
-                Destroy(direction);
+                result = Destroy(direction);
                 print(gm.CurrentPlayer.name + " tried to destroy a wall in direction: " + direction);
                 break;
         }
-        UseMoves(currentAbility.cost);
+        if (result)
+        {
+            UseMoves(currentAbility.cost);
+        }
     }
 
-    void Build(Tile.Direction direction)
+    bool Build(Tile.Direction direction)
     {
-        gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].CreateWall(direction, gm.CurrentPlayer);
+        return gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].CreateWall(direction, gm.CurrentPlayer);
     }
 
-    void Destroy(Tile.Direction direction)
+    bool Destroy(Tile.Direction direction)
     {
-        gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].DestroyWall(direction);
+        return gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].DestroyWall(direction);
     }
 
     void UseMoves(int moves)
