@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Map : MonoBehaviour {
 
-    public GameManager gm;
     public Tile tilePrefab;
     public int sizeX;
     public int sizeY;
@@ -117,15 +116,15 @@ public class Map : MonoBehaviour {
         Vector2Int player1position = SetPlayer(centerX, centerY, new bool[sizeX, sizeY], new Vector2Int());
 
         // insert player1
-        gm.player1.transform.position = new Vector3(player1position.x + tilePadding*player1position.x, 0.5f, player1position.y + tilePadding*player1position.y);
-        gm.player1.mapPosition = player1position;
+        GameManager.instance.player1.transform.position = new Vector3(player1position.x + tilePadding*player1position.x, 0.5f, player1position.y + tilePadding*player1position.y);
+        GameManager.instance.player1.mapPosition = player1position;
 
 
         Vector2Int player2position = SetPlayer(centerX, centerY, new bool[sizeX, sizeY], player1position);
 
         // insert player2
-        gm.player2.transform.position = new Vector3(player2position.x + tilePadding * player2position.x,  0.5f, player2position.y + tilePadding * player2position.y);
-        gm.player2.mapPosition = player2position;
+        GameManager.instance.player2.transform.position = new Vector3(player2position.x + tilePadding * player2position.x,  0.5f, player2position.y + tilePadding * player2position.y);
+        GameManager.instance.player2.mapPosition = player2position;
 
 
 

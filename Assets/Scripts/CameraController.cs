@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour {
 
-    public GameManager gm;
+
     public Vector3 cameraFollowOffset = new Vector3(0, 10, 0);
     public float zoomScale;
     public Camera followCamera;
@@ -25,7 +25,7 @@ public class CameraController : MonoBehaviour {
 
     private void Update()
     {
-        ChangeCamera(gm.player1, gm.player2); // change camera
+        ChangeCamera(GameManager.instance.player1, GameManager.instance.player2); // change camera
     }
 
     void ChangeCamera(Player player1, Player player2)

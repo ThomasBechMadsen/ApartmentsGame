@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
+    public static GameManager instance = null; //Static instance of GameManager which allows it to be accessed by any other script.
     public Map map;
     public PlayerController pc;
     public CameraController cameracontroller;
@@ -13,6 +14,24 @@ public class GameManager : MonoBehaviour {
     public Player CurrentPlayer;
     public int turnsCounter = 1;
 
+
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+        //If instance already exists and it's not this:
+        else if (instance != this)
+        {
+            //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
+            Destroy(gameObject);
+        }
+
+        //Sets this to not be destroyed when reloading scene
+        DontDestroyOnLoad(gameObject);
+
+    }
 
     public void EndTurn()
     {

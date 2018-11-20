@@ -62,7 +62,7 @@ public class Tile : MonoBehaviour {
                 wall.back.GetComponent<Renderer>().material = creator.playerColour;
                 wall.destructable = false;
                 map.unclaimedTiles--;
-                map.gm.resetMoves(creator);
+                GameManager.instance.resetMoves(creator);
             }
         }
         
