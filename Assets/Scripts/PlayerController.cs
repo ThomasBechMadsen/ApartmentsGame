@@ -5,7 +5,6 @@ using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour {
 
-    public GameManager gm;
     public int StartMoves;
     public int MoveCost;
     public List<Ability> abilities = new List<Ability>();
@@ -39,6 +38,7 @@ public class PlayerController : MonoBehaviour {
         {
             UseCurrentAbility();
         }
+
     }
 
     void Move(Tile.Direction direction)
@@ -46,10 +46,11 @@ public class PlayerController : MonoBehaviour {
         switch (direction)
         {
             case Tile.Direction.North:
-                if (!gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].north && !IsTileOccupied(gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y + 1))
+                if (!GameManager.instance.map.tiles[GameManager.instance.CurrentPlayer.mapPosition.x, GameManager.instance.CurrentPlayer.mapPosition.y].north 
+                    && !IsTileOccupied(GameManager.instance.CurrentPlayer.mapPosition.x, GameManager.instance.CurrentPlayer.mapPosition.y + 1))
                 {
-                    gm.CurrentPlayer.transform.Translate(new Vector3(0, 0, 1 + gm.map.tilePadding));
-                    gm.CurrentPlayer.mapPosition.y++;
+                    GameManager.instance.CurrentPlayer.transform.Translate(new Vector3(0, 0, 1 + GameManager.instance.map.tilePadding));
+                    GameManager.instance.CurrentPlayer.mapPosition.y++;
                 }
                 else
                 {
@@ -57,10 +58,11 @@ public class PlayerController : MonoBehaviour {
                 }
                 break;
             case Tile.Direction.East:
-                if (!gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].east && !IsTileOccupied(gm.CurrentPlayer.mapPosition.x + 1, gm.CurrentPlayer.mapPosition.y))
+                if (!GameManager.instance.map.tiles[GameManager.instance.CurrentPlayer.mapPosition.x, GameManager.instance.CurrentPlayer.mapPosition.y].east 
+                    && !IsTileOccupied(GameManager.instance.CurrentPlayer.mapPosition.x + 1, GameManager.instance.CurrentPlayer.mapPosition.y))
                 {
-                    gm.CurrentPlayer.transform.Translate(new Vector3(1 + gm.map.tilePadding, 0, 0));
-                    gm.CurrentPlayer.mapPosition.x++;
+                    GameManager.instance.CurrentPlayer.transform.Translate(new Vector3(1 + GameManager.instance.map.tilePadding, 0, 0));
+                    GameManager.instance.CurrentPlayer.mapPosition.x++;
                 }
                 else
                 {
@@ -68,10 +70,11 @@ public class PlayerController : MonoBehaviour {
                 }
                 break;
             case Tile.Direction.South:
-                if (!gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].south && !IsTileOccupied(gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y - 1))
+                if (!GameManager.instance.map.tiles[GameManager.instance.CurrentPlayer.mapPosition.x, GameManager.instance.CurrentPlayer.mapPosition.y].south 
+                    && !IsTileOccupied(GameManager.instance.CurrentPlayer.mapPosition.x, GameManager.instance.CurrentPlayer.mapPosition.y - 1))
                 {
-                    gm.CurrentPlayer.transform.Translate(new Vector3(0, 0, -1 - gm.map.tilePadding));
-                    gm.CurrentPlayer.mapPosition.y--;
+                    GameManager.instance.CurrentPlayer.transform.Translate(new Vector3(0, 0, -1 - GameManager.instance.map.tilePadding));
+                    GameManager.instance.CurrentPlayer.mapPosition.y--;
                 }
                 else
                 {
@@ -79,10 +82,11 @@ public class PlayerController : MonoBehaviour {
                 }
                 break;
             case Tile.Direction.West:
-                if (!gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].west && !IsTileOccupied(gm.CurrentPlayer.mapPosition.x - 1, gm.CurrentPlayer.mapPosition.y))
+                if (!GameManager.instance.map.tiles[GameManager.instance.CurrentPlayer.mapPosition.x, GameManager.instance.CurrentPlayer.mapPosition.y].west 
+                    && !IsTileOccupied(GameManager.instance.CurrentPlayer.mapPosition.x - 1, GameManager.instance.CurrentPlayer.mapPosition.y))
                 {
-                    gm.CurrentPlayer.transform.Translate(new Vector3(-1 - gm.map.tilePadding, 0, 0));
-                    gm.CurrentPlayer.mapPosition.x--;
+                    GameManager.instance.CurrentPlayer.transform.Translate(new Vector3(-1 - GameManager.instance.map.tilePadding, 0, 0));
+                    GameManager.instance.CurrentPlayer.mapPosition.x--;
                 }
                 else
                 {
@@ -90,12 +94,13 @@ public class PlayerController : MonoBehaviour {
                 }
                 break;
         }
+
         UseMoves(MoveCost);
     }
 
     void UseCurrentAbility()
     {
-        if (currentAbility.cost > gm.CurrentPlayer.Moves)
+        if (currentAbility.cost > GameManager.instance.CurrentPlayer.Moves)
         {
             return;
         }
@@ -107,13 +112,13 @@ public class PlayerController : MonoBehaviour {
                 result = Build(direction);
                 if (result)
                 {
-                    gm.CheckWinConditions();
+                    GameManager.instance.CheckWinConditions();
                 }
-                print(gm.CurrentPlayer.name + " tried to build a wall in direction: " + direction);
+                print(GameManager.instance.CurrentPlayer.name + " tried to build a wall in direction: " + direction);
                 break;
             case "DestroyWall":
                 result = Destroy(direction);
-                print(gm.CurrentPlayer.name + " tried to destroy a wall in direction: " + direction);
+                print(GameManager.instance.CurrentPlayer.name + " tried to destroy a wall in direction: " + direction);
                 break;
         }
         if (result)
@@ -124,22 +129,21 @@ public class PlayerController : MonoBehaviour {
 
     bool Build(Tile.Direction direction)
     {
-        return gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].CreateWall(direction, gm.CurrentPlayer);
+        return GameManager.instance.map.tiles[GameManager.instance.CurrentPlayer.mapPosition.x, GameManager.instance.CurrentPlayer.mapPosition.y].CreateWall(direction, GameManager.instance.CurrentPlayer);
     }
 
     bool Destroy(Tile.Direction direction)
     {
-        return gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].DestroyWall(direction);
+        return GameManager.instance.map.tiles[GameManager.instance.CurrentPlayer.mapPosition.x, GameManager.instance.CurrentPlayer.mapPosition.y].DestroyWall(direction);
     }
 
     void UseMoves(int moves)
     {
-        gm.CurrentPlayer.Moves -= moves;
-        gm.energyBarController.UseMoves(moves);
-        print("Moves left: " + gm.CurrentPlayer.Moves);
-        if (gm.CurrentPlayer.Moves <= 0)
+        GameManager.instance.CurrentPlayer.Moves -= moves;
+        print("Moves left: " + GameManager.instance.CurrentPlayer.Moves);
+        if (GameManager.instance.CurrentPlayer.Moves <= 0)
         {
-            gm.EndTurn();
+            GameManager.instance.EndTurn();
         }
     }
 
@@ -152,8 +156,8 @@ public class PlayerController : MonoBehaviour {
         if (hPlane.Raycast(mouseRay, out distance))
         {
             Vector3 hitPoint = mouseRay.GetPoint(distance) + new Vector3(0, 0.5f, 0);
-            Vector3 direction = (hitPoint - gm.CurrentPlayer.transform.position).normalized;
-            Debug.DrawLine(gm.CurrentPlayer.transform.position, direction, Color.blue, 1);
+            Vector3 direction = (hitPoint - GameManager.instance.CurrentPlayer.transform.position).normalized;
+            Debug.DrawLine(GameManager.instance.CurrentPlayer.transform.position, direction, Color.blue, 1);
 
             if (direction.x > 0.5f)
             {
@@ -183,7 +187,8 @@ public class PlayerController : MonoBehaviour {
 
     public bool IsTileOccupied(int mapX, int mapY)
     {
-        if ((gm.player1.mapPosition.x == mapX && gm.player1.mapPosition.y == mapY) || (gm.player2.mapPosition.x == mapX && gm.player2.mapPosition.y == mapY))
+        if ((GameManager.instance.player1.mapPosition.x == mapX && GameManager.instance.player1.mapPosition.y == mapY) ||
+            (GameManager.instance.player2.mapPosition.x == mapX && GameManager.instance.player2.mapPosition.y == mapY))
         {
             return true;
         }

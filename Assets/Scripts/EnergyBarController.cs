@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class EnergyBarController : MonoBehaviour {
-
-    public GameManager gm;
+    
     public GameObject energyIcon;
     public Color player1Color;
     public Color player2Color;
@@ -15,7 +14,7 @@ public class EnergyBarController : MonoBehaviour {
 
     void Start()
     {
-        moves = new Image[gm.pc.StartMoves];
+        moves = new Image[GameManager.instance.pc.StartMoves];
         for (int i = 0; i < moves.Length; i++)
         {
             moves[i] = Instantiate(energyIcon, transform).GetComponent<Image>();

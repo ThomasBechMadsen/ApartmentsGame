@@ -4,24 +4,33 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
+    public static GameManager instance = null; //Static instance of GameManager which allows it to be accessed by any other script.
     public Map map;
     public PlayerController pc;
     public EnergyBarController energyBarController;
+    public CameraController cameracontroller;
 
     public Player player1;
     public Player player2;
     public Player CurrentPlayer;
     public int turnsCounter = 1;
 
-    // Use this for initialization
     void Start () {
         StartTurn();
 	}
-    
+
     public void StartTurn()
     {
         ResetMoves();
         print("Round: " + Mathf.FloorToInt(turnsCounter / 2) + ". Current player is: " + CurrentPlayer.name + ", with moves: " + CurrentPlayer.Moves);
+    }
+
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
     }
 
     public void EndTurn()

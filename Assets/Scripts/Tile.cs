@@ -58,7 +58,7 @@ public class Tile : MonoBehaviour {
             wall.front = this;
             if (creator != null && wall.back.north && wall.back.south && wall.back.east && wall.back.west)
             {
-                if(!map.gm.pc.IsTileOccupied(wall.back.mapPosition.x, wall.back.mapPosition.x))
+                if(!GameManager.instance.pc.IsTileOccupied(wall.back.mapPosition.x, wall.back.mapPosition.x))
                 {
                     ClaimTile(wall.back, creator);
                 }
@@ -208,7 +208,7 @@ public class Tile : MonoBehaviour {
         tile.south.destructable = false;
         tile.west.destructable = false;
         tile.map.unclaimedTiles--;
-        tile.map.gm.ResetMoves();
+        GameManager.instance.ResetMoves();
     }
 
 }

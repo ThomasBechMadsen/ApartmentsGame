@@ -55,6 +55,7 @@ MonoBehaviour:
   map: {fileID: 0}
   pc: {fileID: 114884677252030252}
   energyBarController: {fileID: 0}
+  cameracontroller: {fileID: 0}
   player1: {fileID: 0}
   player2: {fileID: 0}
   CurrentPlayer: {fileID: 0}
@@ -70,7 +71,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 402c86ac57ba3de4ba496d162b8d9734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gm: {fileID: 114126436112028084}
   StartMoves: 5
   MoveCost: 1
   abilities:

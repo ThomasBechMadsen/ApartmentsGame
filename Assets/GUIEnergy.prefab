@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 224540787865466548}
   - component: {fileID: 222143456115391192}
   - component: {fileID: 114470023788546660}
-  - component: {fileID: 114334663073674032}
   m_Layer: 5
   m_Name: GUIEnergy
   m_TagString: Untagged
@@ -29,17 +28,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &114334663073674032
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1705474666781572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af28121ae9294ed4bb80bd097e020249, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114470023788546660
 MonoBehaviour:
   m_ObjectHideFlags: 1
