@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour {
         switch (direction)
         {
             case Tile.Direction.North:
-                if (!gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].north)
+                if (!gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].north && !IsTileOccupied(gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y + 1))
                 {
                     gm.CurrentPlayer.transform.Translate(new Vector3(0, 0, 1 + gm.map.tilePadding));
                     gm.CurrentPlayer.mapPosition.y++;
@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour {
                 }
                 break;
             case Tile.Direction.East:
-                if (!gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].east)
+                if (!gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].east && !IsTileOccupied(gm.CurrentPlayer.mapPosition.x + 1, gm.CurrentPlayer.mapPosition.y))
                 {
                     gm.CurrentPlayer.transform.Translate(new Vector3(1 + gm.map.tilePadding, 0, 0));
                     gm.CurrentPlayer.mapPosition.x++;
@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour {
                 }
                 break;
             case Tile.Direction.South:
-                if (!gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].south)
+                if (!gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].south && !IsTileOccupied(gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y - 1))
                 {
                     gm.CurrentPlayer.transform.Translate(new Vector3(0, 0, -1 - gm.map.tilePadding));
                     gm.CurrentPlayer.mapPosition.y--;
@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour {
                 }
                 break;
             case Tile.Direction.West:
-                if (!gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].west)
+                if (!gm.map.tiles[gm.CurrentPlayer.mapPosition.x, gm.CurrentPlayer.mapPosition.y].west && !IsTileOccupied(gm.CurrentPlayer.mapPosition.x - 1, gm.CurrentPlayer.mapPosition.y))
                 {
                     gm.CurrentPlayer.transform.Translate(new Vector3(-1 - gm.map.tilePadding, 0, 0));
                     gm.CurrentPlayer.mapPosition.x--;
@@ -179,5 +179,14 @@ public class PlayerController : MonoBehaviour {
     {
         currentAbility = ability;
         print("CurrentAbility is now: " + currentAbility.abilityName);
+    }
+
+    public bool IsTileOccupied(int mapX, int mapY)
+    {
+        if ((gm.player1.mapPosition.x == mapX && gm.player1.mapPosition.y == mapY) || (gm.player2.mapPosition.x == mapX && gm.player2.mapPosition.y == mapY))
+        {
+            return true;
+        }
+        return false;
     }
 }

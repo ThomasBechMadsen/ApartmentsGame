@@ -58,7 +58,10 @@ public class Tile : MonoBehaviour {
             wall.front = this;
             if (creator != null && wall.back.north && wall.back.south && wall.back.east && wall.back.west)
             {
-                ClaimTile(wall.back, creator);
+                if(!map.gm.pc.IsTileOccupied(wall.back.mapPosition.x, wall.back.mapPosition.x))
+                {
+                    ClaimTile(wall.back, creator);
+                }
             }
         }
         
