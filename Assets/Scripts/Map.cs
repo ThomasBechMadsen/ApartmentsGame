@@ -120,6 +120,7 @@ public class Map : MonoBehaviour {
         gm.player1.transform.position = new Vector3(player1position.x + tilePadding*player1position.x, 0.5f, player1position.y + tilePadding*player1position.y);
         gm.player1.mapPosition = player1position;
 
+
         Vector2Int player2position = SetPlayer(centerX, centerY, new bool[sizeX, sizeY], player1position);
 
         // insert player2

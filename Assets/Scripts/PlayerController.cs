@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour {
         {
             UseCurrentAbility();
         }
+
     }
 
     void Move(Tile.Direction direction)
@@ -90,6 +91,7 @@ public class PlayerController : MonoBehaviour {
                 }
                 break;
         }
+
         UseMoves(MoveCost);
     }
 

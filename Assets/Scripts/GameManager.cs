@@ -6,15 +6,13 @@ public class GameManager : MonoBehaviour {
 
     public Map map;
     public PlayerController pc;
+    public CameraController cameracontroller;
 
     public Player player1;
     public Player player2;
     public Player CurrentPlayer;
     public int turnsCounter = 1;
 
-    // Use this for initialization
-    void Start () {
-	}
 
     public void EndTurn()
     {
