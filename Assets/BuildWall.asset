@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03e08daa918253b4ca329594ce189fb4, type: 3}
+  m_Name: BuildWall
+  m_EditorClassIdentifier: 
+  abilityName: Build Wall
+  cost: 3
+  vfxWall: {fileID: 1308518925535314, guid: 54f1de1e9558ad74aa01b9f2c2dbfd7b, type: 2}

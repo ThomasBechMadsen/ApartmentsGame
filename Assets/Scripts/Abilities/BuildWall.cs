@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
+[CreateAssetMenu(fileName = "BuildWall", menuName = "BuildWall", order = 51)]
 public class BuildWall : Ability {
 
-    GameObject vfxWall;
+    [SerializeField]
+    public GameObject vfxWall;
+    GameObject vfxWallInstance;
 
     public BuildWall(string abilityName, int cost, GameObject vfxWall) : base(abilityName, cost)
     {
@@ -17,7 +19,7 @@ public class BuildWall : Ability {
 
     public override void StartVisualEffect()
     {
-        vfxWall = Instantiate(vfxWall);
+        vfxWallInstance = Instantiate(vfxWall);
     }
     
     public override void VisualEffect()
@@ -30,29 +32,29 @@ public class BuildWall : Ability {
             case Tile.Direction.North:
                 if (!playerTile.north)
                 {
-                    vfxWall.transform.position = player.transform.position + new Vector3(0, 0, 0.5f + GameManager.instance.map.tilePadding / 2);
-                    vfxWall.transform.LookAt(player.transform.position + Vector3.forward);
+                    vfxWallInstance.transform.position = player.transform.position + new Vector3(0, 0, 0.5f + GameManager.instance.map.tilePadding / 2);
+                    vfxWallInstance.transform.LookAt(player.transform.position + Vector3.forward);
                 }
                 break;
             case Tile.Direction.East:
                 if (!playerTile.east)
                 {
-                    vfxWall.transform.position = player.transform.position + new Vector3(0.5f + GameManager.instance.map.tilePadding / 2, 0, 0);
-                    vfxWall.transform.LookAt(player.transform.position + Vector3.right);
+                    vfxWallInstance.transform.position = player.transform.position + new Vector3(0.5f + GameManager.instance.map.tilePadding / 2, 0, 0);
+                    vfxWallInstance.transform.LookAt(player.transform.position + Vector3.right);
                 }
                 break;
             case Tile.Direction.South:
                 if (!playerTile.south)
                 {
-                    vfxWall.transform.position = player.transform.position + new Vector3(0, 0, -0.5f - GameManager.instance.map.tilePadding / 2);
-                    vfxWall.transform.LookAt(player.transform.position - Vector3.forward);
+                    vfxWallInstance.transform.position = player.transform.position + new Vector3(0, 0, -0.5f - GameManager.instance.map.tilePadding / 2);
+                    vfxWallInstance.transform.LookAt(player.transform.position - Vector3.forward);
                 }
                 break;
             case Tile.Direction.West:
                 if (!playerTile.west)
                 {
-                    vfxWall.transform.position = player.transform.position + new Vector3(-0.5f - GameManager.instance.map.tilePadding / 2, 0, 0);
-                    vfxWall.transform.LookAt(player.transform.position - Vector3.right);
+                    vfxWallInstance.transform.position = player.transform.position + new Vector3(-0.5f - GameManager.instance.map.tilePadding / 2, 0, 0);
+                    vfxWallInstance.transform.LookAt(player.transform.position - Vector3.right);
                 }
                 break;
         }
@@ -60,7 +62,10 @@ public class BuildWall : Ability {
 
     public override void EndVisualEffect()
     {
-        Destroy(vfxWall.gameObject);
+        if (vfxWallInstance)
+        {
+            Destroy(vfxWallInstance.gameObject);
+        }
     }
 
     public override bool Use(Tile.Direction direction)

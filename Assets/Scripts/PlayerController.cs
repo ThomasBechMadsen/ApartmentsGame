@@ -9,12 +9,9 @@ public class PlayerController : MonoBehaviour {
     public int MoveCost;
     public List<Ability> abilities = new List<Ability>();
     public Ability currentAbility;
-    public GameObject vfxWall;
     
     void Start()
     {
-        abilities.Add(new BuildWall("Build Wall", 3, vfxWall));
-        abilities.Add(new DestroyWall("Destroy Wall", 3));
         SetCurrentAbility(abilities[0]);
     }
 
@@ -166,7 +163,7 @@ public class PlayerController : MonoBehaviour {
 
     public void SetCurrentAbility(Ability ability)
     {
-        if (currentAbility != null)
+        if(currentAbility != null)
         {
             currentAbility.EndVisualEffect();
         }

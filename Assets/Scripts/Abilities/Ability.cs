@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public abstract class Ability : MonoBehaviour{
+public abstract class Ability : ScriptableObject{
     
+    [SerializeField]
     public string abilityName;
+    [SerializeField]
     public int cost;
 
     public Ability(string abilityName, int cost)

@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class AbilityButtonControl : MonoBehaviour {
 
-    public PlayerController playerController;
-
     public void SetCurrentAbility(string abilityName)
     {
-        playerController.SetCurrentAbility(playerController.abilities.Find(a => a.abilityName == abilityName));
+        GameManager.instance.pc.SetCurrentAbility(GameManager.instance.pc.abilities.Find(a => a.abilityName == abilityName));
     }
 }

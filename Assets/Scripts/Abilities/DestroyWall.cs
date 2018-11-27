@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "DestroyWall", menuName = "DestroyWall", order = 52)]
 public class DestroyWall : Ability {
 
     public DestroyWall(string abilityName, int cost) : base(abilityName, cost)
@@ -12,12 +13,10 @@ public class DestroyWall : Ability {
 
     public override void EndVisualEffect()
     {
-        throw new System.NotImplementedException();
     }
 
     public override void StartVisualEffect()
     {
-        throw new System.NotImplementedException();
     }
 
     public override bool Use(Tile.Direction direction)
@@ -32,6 +31,5 @@ public class DestroyWall : Ability {
 
     public override void VisualEffect()
     {
-        throw new System.NotImplementedException();
     }
 }

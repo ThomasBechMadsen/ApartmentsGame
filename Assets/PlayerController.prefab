@@ -53,6 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartMoves: 5
   MoveCost: 1
-  abilities: []
+  abilities:
+  - {fileID: 11400000, guid: 734245560608d8541a093abb1042cb92, type: 2}
+  - {fileID: 11400000, guid: 52b833c1f319c404e92c6679fa8edcad, type: 2}
   currentAbility: {fileID: 0}
-  vfxWall: {fileID: 0}
