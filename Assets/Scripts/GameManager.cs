@@ -21,16 +21,12 @@ public class GameManager : MonoBehaviour {
 
     public void StartTurn()
     {
-        ResetMoves();
-        print("Round: " + Mathf.FloorToInt(turnsCounter / 2) + ". Current player is: " + CurrentPlayer.name + ", with moves: " + CurrentPlayer.Moves);
-    }
-
-    private void Awake()
-    {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
         }
+        ResetMoves();
+        print("Round: " + Mathf.FloorToInt(turnsCounter / 2) + ". Current player is: " + CurrentPlayer.name + ", with moves: " + CurrentPlayer.Moves);
     }
 
     public void EndTurn()

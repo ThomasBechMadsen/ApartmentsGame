@@ -418,3 +418,4 @@ C:\Users\tbma\Desktop\Apartments\obj\Debug\Assembly-CSharp.csproj.CoreCompileInp
 C:\Users\tbma\Desktop\Apartments\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\tbma\Desktop\Apartments\obj\Debug\Assembly-CSharp.dll
 C:\Users\tbma\Desktop\Apartments\obj\Debug\Assembly-CSharp.pdb
+C:\Users\tbma\Desktop\Apartments\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache

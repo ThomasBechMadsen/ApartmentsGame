@@ -20,17 +20,21 @@ public class EnergyBarController : MonoBehaviour {
             moves[i] = Instantiate(energyIcon, transform).GetComponent<Image>();
             moves[i].GetComponent<Image>().color = spentColor;
         }
+        SwitchColor(player1Color);
     }
 
     public void SwitchColor(Color color)
     {
-        foreach(Image im in moves)
+        if (moves != null)
         {
-            im.color = color;
+            foreach (Image im in moves)
+            {
+                im.color = color;
+            }
         }
     }
 
-    public void UseMoves()
+    public void UseMove()
     {
         for (int i = moves.Length; i > 0; i--)
         {
