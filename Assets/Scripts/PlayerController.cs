@@ -9,9 +9,12 @@ public class PlayerController : MonoBehaviour {
     public int MoveCost;
     public List<Ability> abilities = new List<Ability>();
     public Ability currentAbility;
+    public GameObject vfxWall;
     
     void Start()
     {
+        abilities.Add(new BuildWall("Build Wall", 3, vfxWall));
+        abilities.Add(new DestroyWall("Destroy Wall", 3));
         SetCurrentAbility(abilities[0]);
     }
 
@@ -39,6 +42,15 @@ public class PlayerController : MonoBehaviour {
             UseCurrentAbility();
         }
 
+        //Ability effects
+        if (currentAbility is BuildWall)
+        {
+            currentAbility.VisualEffect();
+        }
+        if (currentAbility is DestroyWall)
+        {
+
+        }
     }
 
     void Move(Tile.Direction direction)
@@ -105,39 +117,11 @@ public class PlayerController : MonoBehaviour {
             return;
         }
         Tile.Direction direction = GetMouseDirection();
-        bool result = false;
-        switch (currentAbility.abilityName)
-        {
-            case "BuildWall":
-                result = Build(direction);
-                if (result)
-                {
-                    GameManager.instance.CheckWinConditions();
-                }
-                print(GameManager.instance.CurrentPlayer.name + " tried to build a wall in direction: " + direction);
-                break;
-            case "DestroyWall":
-                result = Destroy(direction);
-                print(GameManager.instance.CurrentPlayer.name + " tried to destroy a wall in direction: " + direction);
-                break;
-        }
-        if (result)
-        {
-            UseMoves(currentAbility.cost);
-        }
+        currentAbility.Use(direction);
+        
     }
 
-    bool Build(Tile.Direction direction)
-    {
-        return GameManager.instance.map.tiles[GameManager.instance.CurrentPlayer.mapPosition.x, GameManager.instance.CurrentPlayer.mapPosition.y].CreateWall(direction, GameManager.instance.CurrentPlayer);
-    }
-
-    bool Destroy(Tile.Direction direction)
-    {
-        return GameManager.instance.map.tiles[GameManager.instance.CurrentPlayer.mapPosition.x, GameManager.instance.CurrentPlayer.mapPosition.y].DestroyWall(direction);
-    }
-
-    void UseMoves(int moves)
+    public void UseMoves(int moves)
     {
         GameManager.instance.CurrentPlayer.Moves -= moves;
         GameManager.instance.energyBarController.UseMoves(moves);
@@ -148,7 +132,7 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    Tile.Direction GetMouseDirection()
+    public Tile.Direction GetMouseDirection()
     {
         //https://answers.unity.com/questions/269760/ray-finding-out-x-and-z-coordinates-where-it-inter.html by aldonaletto · Jun 19, 2012 at 03:10 AM 
         Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -182,8 +166,13 @@ public class PlayerController : MonoBehaviour {
 
     public void SetCurrentAbility(Ability ability)
     {
+        if (currentAbility != null)
+        {
+            currentAbility.EndVisualEffect();
+        }
         currentAbility = ability;
         print("CurrentAbility is now: " + currentAbility.abilityName);
+        currentAbility.StartVisualEffect();
     }
 
     public bool IsTileOccupied(int mapX, int mapY)

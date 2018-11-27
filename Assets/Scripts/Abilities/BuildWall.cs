@@ -1,0 +1,84 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[Serializable]
+public class BuildWall : Ability {
+
+    GameObject vfxWall;
+
+    public BuildWall(string abilityName, int cost, GameObject vfxWall) : base(abilityName, cost)
+    {
+        this.abilityName = abilityName;
+        this.cost = cost;
+        this.vfxWall = vfxWall;
+    }
+
+    public override void StartVisualEffect()
+    {
+        vfxWall = Instantiate(vfxWall);
+    }
+    
+    public override void VisualEffect()
+    {
+        Player player = GameManager.instance.CurrentPlayer;
+        Tile.Direction direction = GameManager.instance.pc.GetMouseDirection();
+        Tile playerTile = GameManager.instance.map.tiles[player.mapPosition.x, player.mapPosition.y];
+        switch (direction)
+        {
+            case Tile.Direction.North:
+                if (!playerTile.north)
+                {
+                    vfxWall.transform.position = player.transform.position + new Vector3(0, 0, 0.5f + GameManager.instance.map.tilePadding / 2);
+                    vfxWall.transform.LookAt(player.transform.position + Vector3.forward);
+                }
+                break;
+            case Tile.Direction.East:
+                if (!playerTile.east)
+                {
+                    vfxWall.transform.position = player.transform.position + new Vector3(0.5f + GameManager.instance.map.tilePadding / 2, 0, 0);
+                    vfxWall.transform.LookAt(player.transform.position + Vector3.right);
+                }
+                break;
+            case Tile.Direction.South:
+                if (!playerTile.south)
+                {
+                    vfxWall.transform.position = player.transform.position + new Vector3(0, 0, -0.5f - GameManager.instance.map.tilePadding / 2);
+                    vfxWall.transform.LookAt(player.transform.position - Vector3.forward);
+                }
+                break;
+            case Tile.Direction.West:
+                if (!playerTile.west)
+                {
+                    vfxWall.transform.position = player.transform.position + new Vector3(-0.5f - GameManager.instance.map.tilePadding / 2, 0, 0);
+                    vfxWall.transform.LookAt(player.transform.position - Vector3.right);
+                }
+                break;
+        }
+    }
+
+    public override void EndVisualEffect()
+    {
+        Destroy(vfxWall.gameObject);
+    }
+
+    public override bool Use(Tile.Direction direction)
+    {
+        Wall result =  GameManager.instance.map.tiles[GameManager.instance.CurrentPlayer.mapPosition.x, GameManager.instance.CurrentPlayer.mapPosition.y].CreateWall(direction, GameManager.instance.CurrentPlayer);
+        if (result)
+        {
+            GameManager.instance.pc.UseMoves(cost);
+            if (result.back.north && result.back.south && result.back.east && result.back.west)
+            {
+                if (!GameManager.instance.pc.IsTileOccupied(result.back.mapPosition.x, result.back.mapPosition.x))
+                {
+                    Tile.ClaimTile(result.back, GameManager.instance.CurrentPlayer);
+                    GameManager.instance.CheckWinConditions();
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+}

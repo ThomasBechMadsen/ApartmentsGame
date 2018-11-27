@@ -8,6 +8,7 @@ public class Map : MonoBehaviour {
     public int sizeX;
     public int sizeY;
     public float tilePadding;
+    public float perlinZoom;
 
     public int unclaimedTiles = 0;
 
@@ -60,12 +61,12 @@ public class Map : MonoBehaviour {
         int[,] matrix = new int[n, m];
 
         Vector2 shift = new Vector2(0, 0);
-        float zoom = 0.1f;
+        /*float zoom = 0.1f;
 
         if (n <= 5 || m <= 5)
         {
             zoom = 0.001f;
-        }
+        }*/
 
         int newNoise = Random.Range(0, 10000);
         //int newNoise = 3;
@@ -84,7 +85,7 @@ public class Map : MonoBehaviour {
 
                 distanceToCenter = distanceToCenter / n;
 
-                Vector2 pos = zoom * (new Vector2(x, y)) + shift;
+                Vector2 pos = perlinZoom * (new Vector2(x, y)) + shift;
                 float noise = Mathf.PerlinNoise(pos.x + newNoise, pos.y + newNoise);
 
                 if (noise < distanceToCenter)
