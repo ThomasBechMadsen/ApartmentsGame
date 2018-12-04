@@ -203,6 +203,11 @@ Prefab:
       propertyPath: playerController
       value: 
       objectReference: {fileID: 355598827}
+    - target: {fileID: 114126436112028084, guid: b3af8ba2760d13b4783e2dcc4f2095ae,
+        type: 2}
+      propertyPath: turnsCounter
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114884677252030252, guid: b3af8ba2760d13b4783e2dcc4f2095ae, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: b3af8ba2760d13b4783e2dcc4f2095ae, type: 2}
@@ -410,13 +415,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 534669902}
-  m_LocalRotation: {x: 0.60876137, y: 0, z: 0, w: 0.7933534}
+  m_LocalRotation: {x: 0.52456343, y: -0.18254325, z: 0.11629286, w: 0.8233998}
   m_LocalPosition: {x: 0, y: 10, z: -2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 75, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 65, y: -25, z: 0}
 --- !u!114 &534669906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -428,7 +433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3531aa48682504fd683b61edadd03674, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraFollowOffset: {x: 0, y: 10, z: -2}
+  cameraFollowOffset: {x: 1, y: 7.5, z: -3}
   zoomScale: 0.1
   followCamera: {fileID: 0}
   cameraTimeScale: 5
@@ -534,16 +539,6 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 526609468}
-    - target: {fileID: 114425552472647194, guid: a6cad47f4dacf6f43b942abc4c7091b3,
-        type: 2}
-      propertyPath: m_Text
-      value: Build (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 114491852690946186, guid: a6cad47f4dacf6f43b942abc4c7091b3,
-        type: 2}
-      propertyPath: m_Text
-      value: Destroy (3)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6cad47f4dacf6f43b942abc4c7091b3, type: 2}
   m_IsPrefabAsset: 0

@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour {
     public Player player1;
     public Player player2;
     public Player CurrentPlayer;
-    public int turnsCounter = 1;
+    public int turnsCounter = 0;
 
     void Start () {
         StartTurn();
