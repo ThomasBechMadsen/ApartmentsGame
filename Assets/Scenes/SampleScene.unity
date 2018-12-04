@@ -193,6 +193,16 @@ Prefab:
       propertyPath: CurrentPlayer
       value: 
       objectReference: {fileID: 387996846}
+    - target: {fileID: 114126436112028084, guid: b3af8ba2760d13b4783e2dcc4f2095ae,
+        type: 2}
+      propertyPath: scoreboard
+      value: 
+      objectReference: {fileID: 280216360}
+    - target: {fileID: 114126436112028084, guid: b3af8ba2760d13b4783e2dcc4f2095ae,
+        type: 2}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 355598827}
     m_RemovedComponents:
     - {fileID: 114884677252030252, guid: b3af8ba2760d13b4783e2dcc4f2095ae, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: b3af8ba2760d13b4783e2dcc4f2095ae, type: 2}
@@ -305,18 +315,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!114 &205305345 stripped
+--- !u!114 &280216360 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114496005332856884, guid: a6cad47f4dacf6f43b942abc4c7091b3,
+  m_CorrespondingSourceObject: {fileID: 114853977927406498, guid: a6cad47f4dacf6f43b942abc4c7091b3,
     type: 2}
   m_PrefabInternal: {fileID: 578158910}
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
---- !u!114 &342082929 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114707650751027320, guid: a6cad47f4dacf6f43b942abc4c7091b3,
-    type: 2}
-  m_PrefabInternal: {fileID: 578158910}
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: 97e11aa874a61c7408dca8d3381c3266, type: 3}
 --- !u!114 &355598827 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114719086534005036, guid: 06cd12ca2276f0b408fd7839a6ddb4f6,
@@ -530,21 +534,6 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 526609468}
-    - target: {fileID: 114853977927406498, guid: a6cad47f4dacf6f43b942abc4c7091b3,
-        type: 2}
-      propertyPath: roundsCounter
-      value: 
-      objectReference: {fileID: 205305345}
-    - target: {fileID: 114853977927406498, guid: a6cad47f4dacf6f43b942abc4c7091b3,
-        type: 2}
-      propertyPath: player1Score
-      value: 
-      objectReference: {fileID: 2034832063}
-    - target: {fileID: 114853977927406498, guid: a6cad47f4dacf6f43b942abc4c7091b3,
-        type: 2}
-      propertyPath: player2Score
-      value: 
-      objectReference: {fileID: 342082929}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6cad47f4dacf6f43b942abc4c7091b3, type: 2}
   m_IsPrefabAsset: 0
@@ -808,9 +797,3 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1625905808}
   m_Script: {fileID: 11500000, guid: 2ec838b75ff21654db97afecf37ea1c3, type: 3}
---- !u!114 &2034832063 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114434397463073922, guid: a6cad47f4dacf6f43b942abc4c7091b3,
-    type: 2}
-  m_PrefabInternal: {fileID: 578158910}
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
