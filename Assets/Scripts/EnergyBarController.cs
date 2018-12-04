@@ -14,7 +14,7 @@ public class EnergyBarController : MonoBehaviour {
 
     void Start()
     {
-        moves = new Image[GameManager.instance.pc.StartMoves];
+        moves = new Image[GameManager.instance.playerController.StartMoves];
         for (int i = 0; i < moves.Length; i++)
         {
             moves[i] = Instantiate(energyIcon, transform).GetComponent<Image>();

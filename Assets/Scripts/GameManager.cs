@@ -6,9 +6,10 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager instance = null; //Static instance of GameManager which allows it to be accessed by any other script.
     public Map map;
-    public PlayerController pc;
+    public PlayerController playerController;
     public EnergyBarController energyBarController;
     public CameraController cameracontroller;
+    public ScoreboardManager scoreboard;
 
     public Player player1;
     public Player player2;
@@ -26,7 +27,7 @@ public class GameManager : MonoBehaviour {
             instance = this;
         }
         ResetMoves();
-        print("Round: " + Mathf.FloorToInt(turnsCounter / 2) + ". Current player is: " + CurrentPlayer.name + ", with moves: " + CurrentPlayer.Moves);
+        scoreboard.setRounds(Mathf.FloorToInt(turnsCounter / 2));
     }
 
     public void EndTurn()
@@ -45,6 +46,8 @@ public class GameManager : MonoBehaviour {
 
     public bool CheckWinConditions()
     {
+        scoreboard.setPlayer1Score(player1.Points);
+        scoreboard.setPlayer2Score(player2.Points);
         if (map.unclaimedTiles == 2)
         {
             print("Game Over!");
@@ -66,7 +69,7 @@ public class GameManager : MonoBehaviour {
 
     public void ResetMoves()
     {
-        CurrentPlayer.Moves = pc.StartMoves;
+        CurrentPlayer.Moves = playerController.StartMoves;
         if (CurrentPlayer == player1)
         {
             energyBarController.SwitchColor(energyBarController.player1Color);

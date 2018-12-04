@@ -25,7 +25,7 @@ public class BuildWall : Ability {
     public override void VisualEffect()
     {
         Player player = GameManager.instance.CurrentPlayer;
-        Tile.Direction direction = GameManager.instance.pc.GetMouseDirection();
+        Tile.Direction direction = GameManager.instance.playerController.GetMouseDirection();
         Tile playerTile = GameManager.instance.map.tiles[player.mapPosition.x, player.mapPosition.y];
         switch (direction)
         {
@@ -73,10 +73,10 @@ public class BuildWall : Ability {
         Wall result =  GameManager.instance.map.tiles[GameManager.instance.CurrentPlayer.mapPosition.x, GameManager.instance.CurrentPlayer.mapPosition.y].CreateWall(direction, GameManager.instance.CurrentPlayer);
         if (result)
         {
-            GameManager.instance.pc.UseMoves(cost);
+            GameManager.instance.playerController.UseMoves(cost);
             if (result.back.north && result.back.south && result.back.east && result.back.west)
             {
-                if (!GameManager.instance.pc.IsTileOccupied(result.back.mapPosition.x, result.back.mapPosition.x))
+                if (!GameManager.instance.playerController.IsTileOccupied(result.back.mapPosition.x, result.back.mapPosition.x))
                 {
                     Tile.ClaimTile(result.back, GameManager.instance.CurrentPlayer);
                     GameManager.instance.CheckWinConditions();

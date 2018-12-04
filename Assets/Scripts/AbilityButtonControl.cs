@@ -6,6 +6,6 @@ public class AbilityButtonControl : MonoBehaviour {
 
     public void SetCurrentAbility(string abilityName)
     {
-        GameManager.instance.pc.SetCurrentAbility(GameManager.instance.pc.abilities.Find(a => a.abilityName == abilityName));
+        GameManager.instance.playerController.SetCurrentAbility(GameManager.instance.playerController.abilities.Find(a => a.abilityName == abilityName));
     }
 }

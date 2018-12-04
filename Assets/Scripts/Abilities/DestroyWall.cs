@@ -23,7 +23,7 @@ public class DestroyWall : Ability {
     {
         if(GameManager.instance.map.tiles[GameManager.instance.CurrentPlayer.mapPosition.x, GameManager.instance.CurrentPlayer.mapPosition.y].DestroyWall(direction))
         {
-            GameManager.instance.pc.UseMoves(cost);
+            GameManager.instance.playerController.UseMoves(cost);
             return true;
         }
         return false;
