@@ -25,7 +25,7 @@ public class BuildWall : Ability {
     public override void VisualEffect()
     {
         Player player = GameManager.instance.CurrentPlayer;
-        Tile.Direction direction = GameManager.instance.playerController.GetMouseDirection();
+        Tile.Direction direction = GameManager.instance.playerController.currentMouseDirection;
         Tile playerTile = GameManager.instance.map.tiles[player.mapPosition.x, player.mapPosition.y];
         switch (direction)
         {
