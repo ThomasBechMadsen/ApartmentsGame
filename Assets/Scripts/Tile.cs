@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,13 +7,17 @@ public class Tile : MonoBehaviour {
 
     public enum Direction {North, South, East, West};
     public Wall wallPrefab;
+    public GameObject pillarPrefab;
 
     public Map map;
     public Wall north;
     public Wall south;
     public Wall east;
     public Wall west;
-
+    public GameObject northWest;
+    public GameObject northEast;
+    public GameObject southEast;
+    public GameObject southWest;
     public Vector2Int mapPosition;
 
     public static Tile Instantiate(Tile prefab, Vector3 position, Quaternion rotation, Transform parent, Map map, Vector2Int mapPosition)
@@ -56,6 +61,7 @@ public class Tile : MonoBehaviour {
         if (wall)
         {
             wall.front = this;
+            CreatePillars(dir);
         }
         return wall;
     }
@@ -189,6 +195,153 @@ public class Tile : MonoBehaviour {
                 break;
         }
         return false;
+    }
+
+    public void CreatePillars(Direction dir)
+    {
+        switch (dir)
+        {
+            case Direction.North:
+                if (!northWest)
+                {
+                    CreateNortWest();
+                }
+                if (!northEast)
+                {
+                    CreateNorthEast();
+                }
+                break;
+            case Direction.East:
+                if (!northEast)
+                {
+                    CreateNorthEast();
+                }
+                if (!southEast)
+                {
+                    CreateSouthEast();
+                }
+                break;
+            case Direction.South:
+                if (!southWest)
+                {
+                    CreateSouthWest();
+                }
+                if (!southEast)
+                {
+                    CreateSouthEast();
+                }
+                break;
+            case Direction.West:
+                if (!northWest)
+                {
+                    CreateNortWest();
+                }
+                if (!southWest)
+                {
+                    CreateSouthWest();
+                }
+                break;
+        }
+    }
+
+    GameObject CreateNortWest()
+    {
+        GameObject pillar = Instantiate(pillarPrefab, transform.position + new Vector3(-0.5f - map.tilePadding / 2, 0, 0.5f + map.tilePadding / 2), Quaternion.identity, transform);
+        northWest = pillar;
+
+        //Inform neighbours
+        Tile left = map.getTile(mapPosition.x - 1, mapPosition.y);
+        Tile up = map.getTile(mapPosition.x, mapPosition.y + 1);
+        Tile adjacent = map.getTile(mapPosition.x - 1, mapPosition.y + 1);
+        if (left)
+        {
+            left.northEast = pillar;
+        }
+        if (up)
+        {
+            up.southWest = pillar;
+        }
+        if (adjacent)
+        {
+            adjacent.southEast = pillar;
+        }
+
+        return pillar;
+    }
+
+    GameObject CreateNorthEast()
+    {
+        GameObject pillar = Instantiate(pillarPrefab, transform.position + new Vector3(0.5f + map.tilePadding / 2, 0, 0.5f + map.tilePadding / 2), Quaternion.identity, transform);
+        northEast = pillar;
+
+        //Inform neighbours
+        Tile right = map.getTile(mapPosition.x + 1, mapPosition.y);
+        Tile up = map.getTile(mapPosition.x, mapPosition.y + 1);
+        Tile adjacent = map.getTile(mapPosition.x + 1, mapPosition.y + 1);
+        if (right)
+        {
+            right.northWest = pillar;
+        }
+        if (up)
+        {
+            up.southEast = pillar;
+        }
+        if (adjacent)
+        {
+            adjacent.southWest = pillar;
+        }
+
+        return pillar;
+    }
+
+    GameObject CreateSouthWest()
+    {
+        GameObject pillar = Instantiate(pillarPrefab, transform.position + new Vector3(-0.5f - map.tilePadding / 2, 0, -0.5f - map.tilePadding / 2), Quaternion.identity, transform);
+        southWest = pillar;
+
+        //Inform neighbours
+        Tile left = map.getTile(mapPosition.x - 1, mapPosition.y);
+        Tile down = map.getTile(mapPosition.x, mapPosition.y - 1);
+        Tile adjacent = map.getTile(mapPosition.x - 1, mapPosition.y - 1);
+        if (left)
+        {
+            left.southEast = pillar;
+        }
+        if (down)
+        {
+            down.northWest = pillar;
+        }
+        if (adjacent)
+        {
+            adjacent.northEast = pillar;
+        }
+
+        return pillar;
+    }
+
+    GameObject CreateSouthEast()
+    {
+        GameObject pillar = Instantiate(pillarPrefab, transform.position + new Vector3(0.5f + map.tilePadding / 2, 0, -0.5f - map.tilePadding / 2), Quaternion.identity, transform);
+        southEast = pillar;
+
+        //Inform neighbours
+        Tile right = map.getTile(mapPosition.x + 1, mapPosition.y);
+        Tile down = map.getTile(mapPosition.x, mapPosition.y - 1);
+        Tile adjacent = map.getTile(mapPosition.x + 1, mapPosition.y - 1);
+        if (right)
+        {
+            right.southWest = pillar;
+        }
+        if (down)
+        {
+            down.northEast = pillar;
+        }
+        if (adjacent)
+        {
+            adjacent.northWest = pillar;
+        }
+
+        return pillar;
     }
 
     public static void ClaimTile(Tile tile, Player player)

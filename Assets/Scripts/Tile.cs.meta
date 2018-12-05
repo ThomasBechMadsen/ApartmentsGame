@@ -3,7 +3,20 @@ guid: 6b42b45eece41ce43b9820a4d887f2cc
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - wallPrefab: {fileID: 114308897838613338, guid: 4826f75d80f7458478ce95a2bf0de23e,
+      type: 2}
+  - pillarPrefab: {fileID: 1954312566081854, guid: 1afc2e07c27b8dc48a7a80ffe8325a4d,
+      type: 2}
+  - map: {instanceID: 0}
+  - north: {instanceID: 0}
+  - south: {instanceID: 0}
+  - east: {instanceID: 0}
+  - west: {instanceID: 0}
+  - northWest: {instanceID: 0}
+  - northEast: {instanceID: 0}
+  - southEast: {instanceID: 0}
+  - southWest: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
