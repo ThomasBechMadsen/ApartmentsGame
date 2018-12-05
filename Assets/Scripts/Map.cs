@@ -34,6 +34,15 @@ public class Map : MonoBehaviour {
                 {
                     unclaimedTiles++;
                     tiles[i, j] = Tile.Instantiate(tilePrefab, new Vector3(i + tilePadding * i, 0, j + tilePadding * j), Quaternion.Euler(90, 0, 0), transform, this, new Vector2Int(i, j));
+                }
+            }
+        }
+        for (int i = 0; i < sizeX; i++)
+        {
+            for (int j = 0; j < sizeY; j++)
+            {
+                if (map[i, j] == 0)
+                {
                     if (i == 0 || i - 1 >= 0 && map[i - 1, j] == 1)
                     {
                         tiles[i, j].CreateWall(Tile.Direction.West, null).destructable = false;
@@ -50,7 +59,7 @@ public class Map : MonoBehaviour {
                     {
                         tiles[i, j].CreateWall(Tile.Direction.North, null).destructable = false; ;
                     }
-                          
+
                 }
             }
         }

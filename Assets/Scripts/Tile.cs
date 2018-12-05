@@ -68,8 +68,8 @@ public class Tile : MonoBehaviour {
 
     Wall CreateNorthWall()
     {
-        Wall wall = Instantiate(wallPrefab, transform.position + new Vector3(0, 0, 0.5f + map.tilePadding / 2), Quaternion.identity, transform);
-        wall.transform.LookAt(transform.position + Vector3.forward);
+        Wall wall = Instantiate(wallPrefab, transform.position + new Vector3(0, wallPrefab.transform.position.y, 0.5f + map.tilePadding / 2), Quaternion.identity, transform);
+        wall.transform.LookAt(transform.position + Vector3.up * wallPrefab.transform.position.y);
         north = wall;
 
         int posX = mapPosition.x;
@@ -88,8 +88,8 @@ public class Tile : MonoBehaviour {
     
     Wall CreateEastWall()
     {
-        Wall wall = Instantiate(wallPrefab, transform.position + new Vector3(0.5f + map.tilePadding / 2, 0, 0), Quaternion.identity, transform);
-        wall.transform.LookAt(transform.position + Vector3.right);
+        Wall wall = Instantiate(wallPrefab, transform.position + new Vector3(0.5f + map.tilePadding / 2, wallPrefab.transform.position.y, 0), Quaternion.identity, transform);
+        wall.transform.LookAt(transform.position + Vector3.up * wallPrefab.transform.position.y);
         east = wall;
 
         int posX = mapPosition.x + 1;
@@ -108,8 +108,8 @@ public class Tile : MonoBehaviour {
 
     Wall CreateSouthWall()
     {
-        Wall wall = Instantiate(wallPrefab, transform.position + new Vector3(0, 0, -0.5f - map.tilePadding / 2), Quaternion.identity, transform);
-        wall.transform.LookAt(transform.position + -Vector3.forward);
+        Wall wall = Instantiate(wallPrefab, transform.position + new Vector3(0, wallPrefab.transform.position.y, -0.5f - map.tilePadding / 2), Quaternion.identity, transform);
+        wall.transform.LookAt(transform.position + Vector3.up * wallPrefab.transform.position.y);
         south = wall;
         
         int posX = mapPosition.x;
@@ -128,8 +128,8 @@ public class Tile : MonoBehaviour {
 
     Wall CreateWestWall()
     {
-        Wall wall = Instantiate(wallPrefab, transform.position + new Vector3(-0.5f - map.tilePadding / 2, 0, 0), Quaternion.identity, transform);
-        wall.transform.LookAt(transform.position + -Vector3.right);
+        Wall wall = Instantiate(wallPrefab, transform.position + new Vector3(-0.5f - map.tilePadding / 2, wallPrefab.transform.position.y, 0), Quaternion.identity, transform);
+        wall.transform.LookAt(transform.position + Vector3.up * wallPrefab.transform.position.y);
         west = wall;
         
         int posX = mapPosition.x - 1;
@@ -246,7 +246,7 @@ public class Tile : MonoBehaviour {
 
     GameObject CreateNortWest()
     {
-        GameObject pillar = Instantiate(pillarPrefab, transform.position + new Vector3(-0.5f - map.tilePadding / 2, 0, 0.5f + map.tilePadding / 2), Quaternion.identity, transform);
+        GameObject pillar = Instantiate(pillarPrefab, transform.position + new Vector3(-0.5f - map.tilePadding / 2, pillarPrefab.transform.position.y, 0.5f + map.tilePadding / 2), Quaternion.identity, transform);
         northWest = pillar;
 
         //Inform neighbours
@@ -271,7 +271,7 @@ public class Tile : MonoBehaviour {
 
     GameObject CreateNorthEast()
     {
-        GameObject pillar = Instantiate(pillarPrefab, transform.position + new Vector3(0.5f + map.tilePadding / 2, 0, 0.5f + map.tilePadding / 2), Quaternion.identity, transform);
+        GameObject pillar = Instantiate(pillarPrefab, transform.position + new Vector3(0.5f + map.tilePadding / 2, pillarPrefab.transform.position.y, 0.5f + map.tilePadding / 2), Quaternion.identity, transform);
         northEast = pillar;
 
         //Inform neighbours
@@ -296,7 +296,7 @@ public class Tile : MonoBehaviour {
 
     GameObject CreateSouthWest()
     {
-        GameObject pillar = Instantiate(pillarPrefab, transform.position + new Vector3(-0.5f - map.tilePadding / 2, 0, -0.5f - map.tilePadding / 2), Quaternion.identity, transform);
+        GameObject pillar = Instantiate(pillarPrefab, transform.position + new Vector3(-0.5f - map.tilePadding / 2, pillarPrefab.transform.position.y, -0.5f - map.tilePadding / 2), Quaternion.identity, transform);
         southWest = pillar;
 
         //Inform neighbours
@@ -321,7 +321,7 @@ public class Tile : MonoBehaviour {
 
     GameObject CreateSouthEast()
     {
-        GameObject pillar = Instantiate(pillarPrefab, transform.position + new Vector3(0.5f + map.tilePadding / 2, 0, -0.5f - map.tilePadding / 2), Quaternion.identity, transform);
+        GameObject pillar = Instantiate(pillarPrefab, transform.position + new Vector3(0.5f + map.tilePadding / 2, pillarPrefab.transform.position.y, -0.5f - map.tilePadding / 2), Quaternion.identity, transform);
         southEast = pillar;
 
         //Inform neighbours
