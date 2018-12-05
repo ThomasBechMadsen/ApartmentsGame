@@ -97,8 +97,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wallPrefab: {fileID: 114308897838613338, guid: 4826f75d80f7458478ce95a2bf0de23e,
     type: 2}
+  pillarPrefab: {fileID: 1954312566081854, guid: 1afc2e07c27b8dc48a7a80ffe8325a4d,
+    type: 2}
   map: {fileID: 0}
   north: {fileID: 0}
   south: {fileID: 0}
   east: {fileID: 0}
   west: {fileID: 0}
+  northWest: {fileID: 0}
+  northEast: {fileID: 0}
+  southEast: {fileID: 0}
+  southWest: {fileID: 0}
+  mapPosition: {x: 0, y: 0}
