@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour {
     {
 
         ResetMoves();
-        playerController.SetCurrentAbility(playerController.abilities[0]); // reset current abilities to build
+        playerController.SetCurrentAbility(playerController.abilities[0]); // reset current abilities to build  
         scoreboard.setRounds(Mathf.FloorToInt(turnsCounter / 2));
 
         // call AI
