@@ -73,15 +73,16 @@ public class BuildWall : Ability {
         Wall result =  GameManager.instance.map.tiles[GameManager.instance.CurrentPlayer.mapPosition.x, GameManager.instance.CurrentPlayer.mapPosition.y].CreateWall(direction, GameManager.instance.CurrentPlayer);
         if (result)
         {
-            GameManager.instance.playerController.UseMoves(cost);
             if (result.back.north && result.back.south && result.back.east && result.back.west)
             {
                 if (!GameManager.instance.playerController.IsTileOccupied(result.back.mapPosition.x, result.back.mapPosition.x))
                 {
                     Tile.ClaimTile(result.back, GameManager.instance.CurrentPlayer);
                     GameManager.instance.CheckWinConditions();
+                    return true;
                 }
             }
+            GameManager.instance.playerController.UseMoves(cost);
             return true;
         }
         return false;
