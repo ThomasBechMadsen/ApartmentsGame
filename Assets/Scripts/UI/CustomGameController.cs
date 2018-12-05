@@ -28,19 +28,22 @@ public class CustomGameController : MonoBehaviour {
     public void CreateCustomGame()
     {
         Toggle theActiveToggle = toggleGroup.ActiveToggles().FirstOrDefault();
+        Loader loader = Instantiate(loaderPrefab);
+        loader.sizeX = (int)horizontalSlider.value;
+        loader.sizeY = (int)verticalSlider.value;
 
-        if(theActiveToggle.gameObject.name.Equals("ToggleVersusAI"))
+        if (theActiveToggle.gameObject.name.Equals("ToggleVersusAI"))
         {
             Debug.Log("versus AI");
+            loader.hasAI = true;
         }
         else if (theActiveToggle.gameObject.name.Equals("ToggleVersusPlayer"))
         {
             Debug.Log("Versus Player");
+            loader.hasAI = false;
         }
 
-        Loader loader = Instantiate(loaderPrefab);
-        loader.sizeX = (int)horizontalSlider.value;
-        loader.sizeY = (int)verticalSlider.value;
+       
         SceneManager.LoadScene("SampleScene");
     }
 }

@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour {
     public static GameManager instance = null; //Static instance of GameManager which allows it to be accessed by any other script.
     public Map map;
     public PlayerController playerController;
+    public AIController aiController;
     public EnergyBarController energyBarController;
     public CameraController cameracontroller;
     public ScoreboardManager scoreboard;
@@ -24,6 +25,11 @@ public class GameManager : MonoBehaviour {
         {
             map.sizeX = loader.sizeX;
             map.sizeY = loader.sizeY;
+            player2.isAI = loader.hasAI;
+        }
+        if (instance == null)
+        {
+            instance = this;
         }
     }
 
@@ -33,12 +39,16 @@ public class GameManager : MonoBehaviour {
 
     public void StartTurn()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
+
         ResetMoves();
+        playerController.SetCurrentAbility(playerController.abilities[0]); // reset current abilities to build
         scoreboard.setRounds(Mathf.FloorToInt(turnsCounter / 2));
+
+        // call AI
+        if(CurrentPlayer.isAI)
+        {
+            StartCoroutine(aiController.MakeTurn());
+        }
     }
 
     public void EndTurn()

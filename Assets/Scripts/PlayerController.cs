@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour {
     public List<Ability> abilities = new List<Ability>();
     public Ability currentAbility;
 
+
     public Tile.Direction currentMouseDirection;
     
     void Start()
@@ -20,33 +21,41 @@ public class PlayerController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        currentMouseDirection = UpdateMouseDirection();
+        if (GameManager.instance.CurrentPlayer.isAI)
+        { 
+            
+        }
+        else
+        {
+            currentMouseDirection = UpdateMouseDirection();
 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            Move(Tile.Direction.East);
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                Move(Tile.Direction.East);
+            }
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                Move(Tile.Direction.West);
+            }
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                Move(Tile.Direction.North);
+            }
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                Move(Tile.Direction.South);
+            }
+            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+            {
+                UseCurrentAbility();
+            }
+
+            currentAbility.VisualEffect();
         }
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            Move(Tile.Direction.West);
-        }
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            Move(Tile.Direction.North);
-        }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            Move(Tile.Direction.South);
-        }
-        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
-        {
-            UseCurrentAbility();
-        }
-        
-        currentAbility.VisualEffect();
+
     }
 
-    void Move(Tile.Direction direction)
+    public void Move(Tile.Direction direction)
     {
         switch (direction)
         {
@@ -103,7 +112,7 @@ public class PlayerController : MonoBehaviour {
         UseMoves(MoveCost);
     }
 
-    void UseCurrentAbility()
+    public void UseCurrentAbility()
     {
         if (currentAbility.cost > GameManager.instance.CurrentPlayer.Moves)
         {
@@ -111,8 +120,19 @@ public class PlayerController : MonoBehaviour {
         }
         Tile.Direction direction = currentMouseDirection;
         currentAbility.Use(direction);
-        
     }
+
+    public void UseCurrentAbility(Tile.Direction direction)
+    {
+        if (currentAbility.cost > GameManager.instance.CurrentPlayer.Moves)
+        {
+            return;
+        }
+        currentAbility.Use(direction);
+    }
+
+
+
 
     public void UseMoves(int moves)
     {

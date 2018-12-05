@@ -65,9 +65,11 @@
     <Compile Include="Assets\Scripts\Abilities\BuildWall.cs" />
     <Compile Include="Assets\Scripts\Abilities\DestroyWall.cs" />
     <Compile Include="Assets\Scripts\AbilityButtonControl.cs" />
+    <Compile Include="Assets\Scripts\AIController.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\EnergyBarController.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Helper\IListExtensions.cs" />
     <Compile Include="Assets\Scripts\Helper\Island.cs" />
     <Compile Include="Assets\Scripts\Loader.cs" />
     <Compile Include="Assets\Scripts\Map.cs" />
