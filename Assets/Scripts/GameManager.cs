@@ -15,6 +15,17 @@ public class GameManager : MonoBehaviour {
     public Player CurrentPlayer;
     public int turnsCounter = 1;
 
+
+    private void Awake()
+    {
+        Loader loader = (Loader)FindObjectOfType(typeof(Loader));
+        if (loader != null)
+        {
+            map.sizeX = loader.sizeX;
+            map.sizeY = loader.sizeY;
+        }
+    }
+
     void Start () {
         StartTurn();
 	}
@@ -75,5 +86,11 @@ public class GameManager : MonoBehaviour {
         {
             energyBarController.SwitchColor(energyBarController.player2Color);
         }
+    }
+
+    public void SetMapSize(int x, int y)
+    {
+        map.sizeX = x;
+        map.sizeY = y;
     }
 }
