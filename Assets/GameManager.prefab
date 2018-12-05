@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4588689143459518}
   - component: {fileID: 114126436112028084}
-  - component: {fileID: 114884677252030252}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -53,31 +52,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 0}
-  pc: {fileID: 114884677252030252}
+  playerController: {fileID: 0}
   energyBarController: {fileID: 0}
   cameracontroller: {fileID: 0}
+  scoreboard: {fileID: 0}
   player1: {fileID: 0}
   player2: {fileID: 0}
   CurrentPlayer: {fileID: 0}
-  turnsCounter: 1
---- !u!114 &114884677252030252
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1025005157214122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 402c86ac57ba3de4ba496d162b8d9734, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StartMoves: 5
-  MoveCost: 1
-  abilities:
-  - abilityName: BuildWall
-    cost: 3
-  - abilityName: DestroyWall
-    cost: 3
-  currentAbility:
-    abilityName: 
-    cost: 0
+  turnsCounter: 0

@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour {
     public int MoveCost;
     public List<Ability> abilities = new List<Ability>();
     public Ability currentAbility;
+
+    public Tile.Direction currentMouseDirection;
     
     void Start()
     {
@@ -18,6 +20,8 @@ public class PlayerController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        currentMouseDirection = UpdateMouseDirection();
+
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             Move(Tile.Direction.East);
@@ -38,16 +42,8 @@ public class PlayerController : MonoBehaviour {
         {
             UseCurrentAbility();
         }
-
-        //Ability effects
-        if (currentAbility is BuildWall)
-        {
-            currentAbility.VisualEffect();
-        }
-        if (currentAbility is DestroyWall)
-        {
-
-        }
+        
+        currentAbility.VisualEffect();
     }
 
     void Move(Tile.Direction direction)
@@ -113,7 +109,7 @@ public class PlayerController : MonoBehaviour {
         {
             return;
         }
-        Tile.Direction direction = GetMouseDirection();
+        Tile.Direction direction = currentMouseDirection;
         currentAbility.Use(direction);
         
     }
@@ -129,7 +125,7 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    public Tile.Direction GetMouseDirection()
+    private Tile.Direction UpdateMouseDirection()
     {
         //https://answers.unity.com/questions/269760/ray-finding-out-x-and-z-coordinates-where-it-inter.html by aldonaletto · Jun 19, 2012 at 03:10 AM 
         Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -139,7 +135,7 @@ public class PlayerController : MonoBehaviour {
         {
             Vector3 hitPoint = mouseRay.GetPoint(distance) + new Vector3(0, 0.5f, 0);
             Vector3 direction = (hitPoint - GameManager.instance.CurrentPlayer.transform.position).normalized;
-            Debug.DrawLine(GameManager.instance.CurrentPlayer.transform.position, direction, Color.blue, 1);
+            Debug.DrawLine(GameManager.instance.CurrentPlayer.transform.position, GameManager.instance.CurrentPlayer.transform.position + direction, Color.green, 1);
 
             if (direction.x > 0.5f)
             {

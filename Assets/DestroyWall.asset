@@ -13,3 +13,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Destroy Wall
   cost: 3
+  vfxMaterial: {fileID: 2100000, guid: ffa834155a0f50c408d878c012bf32d5, type: 2}
