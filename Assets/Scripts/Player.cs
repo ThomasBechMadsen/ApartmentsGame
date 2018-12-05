@@ -8,7 +8,11 @@ public class Player : MonoBehaviour {
     public Material playerColour;
     public int Moves { get; set; }
     public int Points { get; set; }
-    
+    public bool isAI;
+
+  
+
+
     /*public static Player Instantiate(Player prefab, Vector3 position, Quaternion rotation, Transform parent, Map map, Vector2Int mapPosition)
     {
         Player newPlayer = Instantiate<Player>(prefab, position, rotation, parent);
