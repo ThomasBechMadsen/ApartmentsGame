@@ -56,6 +56,15 @@ public class Map : MonoBehaviour {
         }
     }
 
+    public Tile getTile(int x, int y)
+    {
+        if (x > 0 && x < tiles.GetLength(0) && y > 0 && y < tiles.GetLength(1))
+        {
+            return tiles[x, y];
+        }
+        return null;
+    }
+
     private int[,] GenerateMatrix(int n, int m)
     {
         int[,] matrix = new int[n, m];
