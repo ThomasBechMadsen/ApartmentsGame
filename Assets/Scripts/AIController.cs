@@ -60,7 +60,7 @@ public class AIController : MonoBehaviour
             GameManager.instance.EndTurn();
 
 
-        }
+        }           
     }
 
     public bool IsTileFree(Tile.Direction direction)
