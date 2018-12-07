@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreboardManager : MonoBehaviour {
+public class Scoreboard : MonoBehaviour {
 
     public Text roundsCounter;
     public Text player1Score;

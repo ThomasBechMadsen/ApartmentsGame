@@ -8,9 +8,9 @@ public class GameManager : MonoBehaviour {
     public Map map;
     public PlayerController playerController;
     public AIController aiController;
-    public EnergyBarController energyBarController;
+    public EnergyBar energyBar;
     public CameraController cameracontroller;
-    public ScoreboardManager scoreboard;
+    public Scoreboard scoreboard;
 
     public Player player1;
     public Player player2;
@@ -93,11 +93,11 @@ public class GameManager : MonoBehaviour {
         CurrentPlayer.Moves = playerController.StartMoves;
         if (CurrentPlayer == player1)
         {
-            energyBarController.SwitchColor(energyBarController.player1Color);
+            energyBar.SwitchColor(energyBar.player1Color);
         }
         else
         {
-            energyBarController.SwitchColor(energyBarController.player2Color);
+            energyBar.SwitchColor(energyBar.player2Color);
         }
     }
 

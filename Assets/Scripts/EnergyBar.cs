@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnergyBarController : MonoBehaviour {
+public class EnergyBar : MonoBehaviour {
     
     public GameObject energyIcon;
     public Color player1Color;
