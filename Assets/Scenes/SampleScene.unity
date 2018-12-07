@@ -203,6 +203,11 @@ Prefab:
       propertyPath: aiController
       value: 
       objectReference: {fileID: 1667241446}
+    - target: {fileID: 114126436112028084, guid: b3af8ba2760d13b4783e2dcc4f2095ae,
+        type: 2}
+      propertyPath: energyBar
+      value: 
+      objectReference: {fileID: 1474773700}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3af8ba2760d13b4783e2dcc4f2095ae, type: 2}
   m_IsPrefabAsset: 0
