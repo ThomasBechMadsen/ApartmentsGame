@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.9490197, g: 0.9490197, b: 0.9490197, a: 1}
-    m_HighlightedColor: {r: 1, g: 0.9644864, b: 0, a: 1}
+    m_HighlightedColor: {r: 0.99215686, g: 0.6431373, b: 0.21176471, a: 1}
     m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -871,6 +871,21 @@ Prefab:
       propertyPath: toggles.Array.data[1]
       value: 
       objectReference: {fileID: 89814028}
+    - target: {fileID: 114748828399549414, guid: a6cad47f4dacf6f43b942abc4c7091b3,
+        type: 2}
+      propertyPath: m_Colors.m_HighlightedColor.r
+      value: 0.99215686
+      objectReference: {fileID: 0}
+    - target: {fileID: 114748828399549414, guid: a6cad47f4dacf6f43b942abc4c7091b3,
+        type: 2}
+      propertyPath: m_Colors.m_HighlightedColor.g
+      value: 0.6431373
+      objectReference: {fileID: 0}
+    - target: {fileID: 114748828399549414, guid: a6cad47f4dacf6f43b942abc4c7091b3,
+        type: 2}
+      propertyPath: m_Colors.m_HighlightedColor.b
+      value: 0.21176471
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6cad47f4dacf6f43b942abc4c7091b3, type: 2}
   m_IsPrefabAsset: 0
@@ -965,8 +980,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.9490197, g: 0.9490197, b: 0.9490197, a: 1}
-    m_HighlightedColor: {r: 1, g: 0.9644864, b: 0, a: 1}
-    m_PressedColor: {r: 1, g: 0.9725491, b: 0.039215688, a: 1}
+    m_HighlightedColor: {r: 0.99215686, g: 0.6431373, b: 0.21176471, a: 1}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
