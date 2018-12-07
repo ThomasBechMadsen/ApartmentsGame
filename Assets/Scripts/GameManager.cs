@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -11,6 +13,7 @@ public class GameManager : MonoBehaviour {
     public EnergyBar energyBar;
     public CameraController cameracontroller;
     public Scoreboard scoreboard;
+    public TextMeshProUGUI winnerText;
 
     public Player player1;
     public Player player2;
@@ -71,18 +74,19 @@ public class GameManager : MonoBehaviour {
         scoreboard.setPlayer2Score(player2.Points);
         if (map.unclaimedTiles == 2)
         {
-            print("Game Over!");
+            winnerText.gameObject.SetActive(true);
             if (player1.Points == player2.Points)
             {
-                print("No winner :(");
+                winnerText.SetText("EVERYONE IS A WINNER!");
             } else if (player1.Points > player2.Points)
             {
-                print("Player 1 wins");
+                winnerText.SetText("BLUE WINS!");
             }
             else
             {
-                print("Player 2 wins");
+                winnerText.SetText("RED WINS!");
             }
+            StartCoroutine(returnToMenu(5));
             return true;
         }
         return false;
@@ -105,5 +109,11 @@ public class GameManager : MonoBehaviour {
     {
         map.sizeX = x;
         map.sizeY = y;
+    }
+
+    private IEnumerator returnToMenu(int delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene(0);
     }
 }

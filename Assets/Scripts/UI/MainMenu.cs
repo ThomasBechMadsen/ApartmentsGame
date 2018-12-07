@@ -8,8 +8,8 @@ public class MainMenu : MonoBehaviour {
     public void PlayGame()
     {
         Loader loader = Instantiate(loaderPrefab);
-        loader.sizeX = 10;
-        loader.sizeY = 10;
+        loader.sizeX = 5;
+        loader.sizeY = 5;
         SceneManager.LoadScene("SampleScene");
     }
 

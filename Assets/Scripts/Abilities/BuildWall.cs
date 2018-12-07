@@ -75,7 +75,7 @@ public class BuildWall : Ability {
         {
             if (result.back.north && result.back.south && result.back.east && result.back.west)
             {
-                if (!GameManager.instance.playerController.IsTileOccupied(result.back.mapPosition.x, result.back.mapPosition.x))
+                if (!GameManager.instance.playerController.IsTileOccupied(result.back.mapPosition.x, result.back.mapPosition.y))
                 {
                     Tile.ClaimTile(result.back, GameManager.instance.CurrentPlayer);
                     GameManager.instance.CheckWinConditions();
