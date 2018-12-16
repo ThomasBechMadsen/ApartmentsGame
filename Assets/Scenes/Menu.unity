@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -681,8 +681,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -14.950012, y: -5.2999573}
-  m_SizeDelta: {x: 244.9, y: 396.5}
+  m_AnchoredPosition: {x: 0, y: -20}
+  m_SizeDelta: {x: 500, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &286569142
 MonoBehaviour:
@@ -703,17 +703,21 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: "Each player has an amount of energy he can use on actions. The player starts
-    with 5 energy. Building cost 3, destroying a wall cost 3, moving cost 1 and ending
-    the turn. \n\nWhen the player don't have more energy left, the players turn is
-    changed to the other player. \n\nThe player also has the option to skip his turn
-    and hand over the turn to the other player. \n\nA player gets points by surrounding
-    a tile with walls. A tile is captured when the four corners are contested with
-    walls. When a player captures a tile, his energy is reset and the tile is coloured
-    by the colour of the player. \n\nA player can destroy walls, but only and only
-    if the wall to the tile isn't captured. A player can destroy other players walls.
-    \ \n\nThe game is over when both players can't move or build anymore. The winner
-    of the game is the player who scored most points by capturing tiles. "
+  m_text: 'The goal of this game is to take as many tiles as possible. A tile is taken
+    by surrounding it with walls. The tile will be given to the player who placed
+    the last wall!
+
+
+    You can only build walls around your player. To walk around the map, use the arrow
+    keys and use the mouse to select and choose were to build or destroy walls.
+
+
+    You only have 5 energy per turn. It costs 1 energy to move and 3 energy to build
+    or destory. Lay a strategy to maximize your energy use!
+
+
+    The game ends when all tiles have been taken. Once a tile is taken, its walls
+    can no longer be destroyed! Be careful not to get stuck!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -741,8 +745,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -779,15 +783,15 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -13.426361, y: 0, z: -42.45746, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 286569142}
-    characterCount: 866
+    characterCount: 602
     spriteCount: 0
-    spaceCount: 174
-    wordCount: 163
+    spaceCount: 123
+    wordCount: 121
     linkCount: 0
-    lineCount: 24
+    lineCount: 15
     pageCount: 1
     materialCount: 1
   m_havePropertiesChanged: 0

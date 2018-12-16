@@ -1297,12 +1297,12 @@ Prefab:
     - target: {fileID: 114372258453430066, guid: 57f9ba3e9c915c94699ec734e412c799,
         type: 2}
       propertyPath: sizeY
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114372258453430066, guid: 57f9ba3e9c915c94699ec734e412c799,
         type: 2}
       propertyPath: sizeX
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114372258453430066, guid: 57f9ba3e9c915c94699ec734e412c799,
         type: 2}
